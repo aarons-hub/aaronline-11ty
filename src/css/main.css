@@ -14,8 +14,8 @@
   --sitewidth: 1280px;
   --btn-padding: 14px 23px;
   --sitefont: "Poppins", "Segoe UI", Roboto, sans-serif;
-  --azure-blue: #0f76b9;
-  --bright-azure-blue: #1788d2;
+  --azure-blue: oklch(0.547 0.121 242.7);
+  --bright-azure-blue: oklch(0.599 0.129 243);
   --cornflower-blue: #6495ed;
   --warm-peach: #ffae91;
   --pale-orange: #ffa656;
@@ -74,7 +74,7 @@
   --base-s70: color-mix(in oklch, var(--base) 70%, black 70%);
   --base-s80: color-mix(in oklch, var(--base) 80%, black 80%);
   --base-s90: color-mix(in oklch, var(--base) 90%, black 90%);
-  --highlight: #c8f461;
+  --highlight: oklch(0.906 0.196 121.4);
   --highlight-t10: color-mix(in oklch, var(--highlight) 10%, white 10%);
   --highlight-t20: color-mix(in oklch, var(--highlight) 20%, white 20%);
   --highlight-t30: color-mix(in oklch, var(--highlight) 30%, white 30%);
@@ -86,7 +86,7 @@
   --highlight-s30: color-mix(in oklch, var(--highlight) 30%, black 30%);
   --highlight-s40: color-mix(in oklch, var(--highlight) 40%, black 40%);
   --highlight-s50: color-mix(in oklch, var(--highlight) 50%, black 50%);
-  --golden-yellow: #dec63e;
+  --golden-yellow: oklch(0.824 0.151 98.6);
   --golden-yellow-t10: color-mix(in oklch, var(--golden-yellow) 10%, white 10%);
   --golden-yellow-t20: color-mix(in oklch, var(--golden-yellow) 20%, white 20%);
   --golden-yellow-s10: color-mix(in oklch, var(--golden-yellow) 10%, black 10%);
@@ -98,35 +98,11 @@
   --blue-grey-s10: color-mix(in oklch, var(--blue-grey) 10%, black 10%);
   --blue-grey-s20: color-mix(in oklch, var(--blue-grey) 20%, black 20%);
   --blue-grey-s30: color-mix(in oklch, var(--blue-grey) 30%, black 30%);
-  --hdr-gradient: linear-gradient(in oklab, #5baadf 0%, #a3d047 100%);
-}
-@supports (color: color(display-p3 0 0 0)) {
-  :root {
-    --near-black: color(display-p3 0.101973 0.101973 0.101973);
-    --base: color(display-p3 0.209235 0.455712 0.704922);
-    --highlight: color(display-p3 0.818504 0.951829 0.466354);
-    --golden-yellow: color(display-p3 0.854923 0.77989 0.344502);
-    --blue-grey: color(display-p3 0.493291 0.60752 0.656443);
-    --hdr-gradient: linear-gradient(
-      in oklab,
-      color(display-p3 0.433462 0.660473 0.856114) 0%,
-      color(display-p3 0.676403 0.811425 0.365201) 100%
-    );
-  }
-}
-@supports (color: lab(0% 0 0)) {
-  :root {
-    --near-black: lab(9.2648% -0.00000745058 0);
-    --base: lab(47.0201% -8.05551 -43.6201);
-    --highlight: lab(90.9786% -30.1612 63.7728);
-    --golden-yellow: lab(80.2001% -1.76564 67.0823);
-    --blue-grey: lab(61.8808% -11.1381 -11.2912);
-    --hdr-gradient: linear-gradient(
-      in oklab,
-      lab(66.3197% -13.541 -34.6576) 0%,
-      lab(78.4003% -29.9677 60.0464) 100%
-    );
-  }
+  --hdr-gradient: linear-gradient(
+    in oklab,
+    oklch(0.64 0.13 243.17) 30%,
+    oklch(0.85 0.13 123.82) 100%
+  );
 }
 
 html {
@@ -187,8 +163,8 @@ p {
   height: 100%;
   position: absolute;
   border-radius: 20px;
-  background-color: var(--base);
-  background-image: url("../images/cover-02.jpg");
+  background-color: var(--azure-blue);
+  background: var(--hdr-gradient);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -244,15 +220,15 @@ header.site-header {
       }
       &.nav-links-group-main {
         padding: var(--btn-padding);
-        background: var(--base-t10);
-        border: 1px solid var(--base-t20);
+        background: var(--base-t20);
+        border: 1px solid var(--base-t30);
         border-radius: 999px;
         gap: 20px;
         display: flex;
         .nav-link-item a {
           padding: var(--btn-padding);
-          background: var(--base-t10);
-          border: 1px solid var(--base-t20);
+          background: var(--base-t30);
+          border: 1px solid var(--base-t40);
           color: var(--base-white);
           border-radius: 999px;
           justify-content: center;

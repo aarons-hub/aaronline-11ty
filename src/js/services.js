@@ -1,5 +1,5 @@
 (function () {
-  var page = document.querySelector(".projects-page");
+  var page = document.querySelector(".services-page");
   if (!page) {
     return;
   }

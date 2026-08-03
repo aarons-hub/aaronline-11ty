@@ -34,7 +34,7 @@
           object-fit: contain;
         }
         &.is-active {
-          border: 2px solid var(--near-black);
+          border: 4px solid var(--near-black);
           &:hover {
             transform: scale(1);
           }
@@ -89,7 +89,7 @@
 
 .projects-title {
   margin: 0;
-  font-size: 3rem;
+  font-size: var(--step-5);
   letter-spacing: -0.02em;
 }
 
@@ -154,11 +154,11 @@
   align-items: center;
   padding: 10px 20px;
   display: flex;
+  mix-blend-mode: overlay;
 }
 
 .hero-frame {
   position: relative;
-  background: #f7f9fc;
   width: fit-content;
   height: fit-content;
 }
@@ -273,7 +273,7 @@
 }
 
 .project-thumb.is-active {
-  border: 2px solid var(--near-black);
+  border: 4px solid var(--near-black);
   &:hover {
     transform: scale(1);
   }
