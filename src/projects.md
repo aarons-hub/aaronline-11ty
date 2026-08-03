@@ -130,7 +130,7 @@ templateEngineOverride: njk
             {% endfor %}
         </div>
         <div class="hero-frame">
-            <img class="hero-base" data-hero-base src="" alt="Active project">
+            <img class="hero-base" data-hero-base src="" alt="Active project" loading="eager">
             <div class="parent-wrapper is-hidden" data-hero-wrap-one>
                 <img class="hero-overlay" data-hero-image-one src="" alt="Active project image one">
             </div>
