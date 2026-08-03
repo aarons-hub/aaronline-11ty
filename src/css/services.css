@@ -1,0 +1,124 @@
+.services-page {
+  align-items: flex-start;
+}
+
+.services-sidebar .services-subtitle {
+  margin-top: 0.5rem;
+}
+
+.services-intro {
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+}
+
+.services-filters {
+  margin-top: 1.5rem;
+}
+
+.services-meta {
+  margin-top: 2rem;
+}
+
+.services-page .thumb-toolbar {
+  display: none;
+}
+
+.services-page .thumb-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  overflow: visible;
+  padding-bottom: 0;
+  margin-top: 1rem;
+}
+
+.services-page .project-thumb {
+  flex: initial;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 11;
+}
+
+.services-page {
+  display: flex;
+  width: 100%;
+  max-width: var(--sitewidth);
+  margin-left: auto;
+  margin-right: auto;
+  .services-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex: 1;
+    padding-right: 60px;
+    .partner-grid {
+      flex-wrap: wrap;
+      margin-top: 20px;
+      display: flex;
+      .partner-button {
+        border: 2px solid var(--base-t70);
+        border-radius: 6px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-basis: 31%;
+        margin-bottom: 10px;
+        transition: transform 0.2s;
+        box-sizing: border-box;
+        padding: 0;
+        overflow: hidden;
+        margin-right: 2%;
+        img {
+          width: 100%;
+          height: auto;
+          object-fit: contain;
+        }
+        &.is-active {
+          border: 2px solid var(--base);
+        }
+        &:hover {
+          border-color: var(--base);
+          background-color: var(--highlight);
+          color: var(--base);
+        }
+      }
+    }
+  }
+  .services-stage {
+    backdrop-filter: blur(2px);
+    flex: 2;
+    max-width: 900px;
+    .thumb-toolbar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      .thumb-nav {
+        border: 2px solid var(--base-t70);
+        background-color: var(--base-t70);
+        color: #fff;
+        cursor: pointer;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        &:hover {
+          border-color: var(--base);
+          background-color: var(--highlight);
+          color: var(--base);
+        }
+      }
+    }
+    .thumb-strip {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scroll-behavior: smooth;
+      margin-bottom: 16px;
+    }
+  }
+}

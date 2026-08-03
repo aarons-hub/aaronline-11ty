@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Sample Project One",
+    "slug": "sample-project-one",
+    "summary": "Replace this with a short summary of the project.",
+    "tags": ["web", "design"],
+    "img": "./images/lime-web-004.png"
+  },
+  {
+    "title": "Sample Project Two",
+    "slug": "sample-project-two",
+    "summary": "Another example entry — duplicate this block to add more.",
+    "tags": ["branding"],
+    "img": "./images/ksg-web-002.png"
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "groups": [
+    {
+      "name": "main",
+      "items": [
+        {
+          "title": "Home",
+          "url": "/"
+        },
+        {
+          "title": "About",
+          "url": "/about/"
+        },
+        {
+          "title": "Services",
+          "url": "/services/"
+        },
+        {
+          "title": "Projects",
+          "url": "/projects/"
+        },
+        {
+          "title": "Pricing",
+          "url": "/pricing/"
+        }
+      ]
+    },
+    {
+      "name": "cta",
+      "items": [
+        {
+          "title": "Contact",
+          "url": "/contact/"
+        }
+      ]
+    }
+  ]
+}
