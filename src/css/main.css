@@ -129,6 +129,11 @@
   }
 }
 
+html {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -297,8 +302,4 @@ footer.site-footer {
     width: 100%;
     max-width: var(--sitewidth);
   }
-}
-
-body {
-  border: 4px solid black;
 }

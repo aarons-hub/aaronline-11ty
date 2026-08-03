@@ -7,7 +7,6 @@ templateEngineOverride: njk
 <section class="projects-page" data-default-group="{{ projects.defaultGroup }}">
     <aside class="projects-sidebar">
         <h2 class="projects-title">{{ title }}</h2>
-        <h3 class="projects-subtitle">Partners</h3>
         <div class="partner-grid">
             {% for group in projects.groups %}
             <button

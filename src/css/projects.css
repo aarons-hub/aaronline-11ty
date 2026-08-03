@@ -9,53 +9,56 @@
     flex-direction: column;
     gap: 18px;
     flex: 1;
-    padding-right: 60px;
+    padding-right: 40px;
     .partner-grid {
       flex-wrap: wrap;
-      margin-top: 20px;
+      margin-top: 40px;
       display: flex;
       .partner-button {
-        border: 2px solid var(--base-t70);
-        border-radius: 6px;
+        border: none;
         background: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        flex-basis: 48%;
         margin-bottom: 10px;
-        transition: transform 0.2s;
         box-sizing: border-box;
         padding: 0;
         overflow: hidden;
-        margin-right: 2%;
+        flex-basis: 29%;
+        margin-right: 4%;
+        transition: transform 0.1s;
         img {
           width: 100%;
           height: auto;
           object-fit: contain;
         }
         &.is-active {
-          border: 2px solid var(--base);
+          border: 2px solid var(--near-black);
+          &:hover {
+            transform: scale(1);
+          }
         }
         &:hover {
-          border-color: var(--base);
-          background-color: var(--highlight);
-          color: var(--base);
+          transform: scale(1.05);
         }
       }
     }
   }
   .projects-stage {
-    backdrop-filter: blur(2px);
+    margin-top: 20px;
     flex: 4;
+    max-width: 900px;
     .thumb-toolbar {
+      display: none !important;
       display: flex;
       gap: 8px;
       margin-bottom: 10px;
       .thumb-nav {
-        border: 2px solid var(--base-t70);
-        background-color: var(--base-t70);
-        color: #fff;
+        font-family: var(--font-family);
+        font-size: var(--step--1);
+        border: none;
+        background-color: var(--highlight);
         cursor: pointer;
         border-radius: 999px;
         justify-content: center;
@@ -64,9 +67,8 @@
         height: 38px;
         display: flex;
         &:hover {
-          border-color: var(--base);
-          background-color: var(--highlight);
-          color: var(--base);
+          background-color: var(--near-black);
+          color: var(--base-white);
         }
         &:disabled {
           opacity: 0.35;
@@ -77,15 +79,10 @@
     }
     .thumb-strip {
       display: flex;
+      flex-wrap: wrap;
       gap: 12px;
-      overflow-x: auto;
       padding-bottom: 6px;
-      scroll-behavior: smooth;
-      margin-bottom: 16px;
-      -ms-overflow-style: none;
-      &::-webkit-scrollbar {
-        display: none;
-      }
+      margin-bottom: 40px;
     }
   }
 }
@@ -164,7 +161,6 @@
   background: #f7f9fc;
   width: fit-content;
   height: fit-content;
-  border: 2px solid var(--base);
 }
 .hero-base {
   width: 100%;
@@ -201,29 +197,30 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 21px;
+  padding: 14px 24px;
   border-radius: 999px;
   background: var(--highlight);
   color: var(--near-black);
   text-decoration: none;
   margin-top: 10px;
-}
-
-.hero-video-link:hover {
-  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+    background: var(--near-black);
+    color: var(--base-white);
+  }
 }
 
 .project-thumb {
+  border: none;
   flex: 0 0 140px;
   height: 100px;
-  border: 2px solid var(--base-t70);
-  border-radius: 6px;
   overflow: hidden;
   cursor: pointer;
   padding: 0;
   background: #fff;
+  transition: transform 0.1s;
   &:hover {
-    border-color: var(--base);
+    transform: scale(1.05);
   }
 }
 
@@ -276,7 +273,10 @@
 }
 
 .project-thumb.is-active {
-  border-color: #1679c4;
+  border: 2px solid var(--near-black);
+  &:hover {
+    transform: scale(1);
+  }
 }
 
 .project-thumb.is-hidden,
@@ -419,5 +419,5 @@
 }
 
 .cover-bg {
-  height: 1462px;
+  height: 1506px;
 }
