@@ -298,3 +298,7 @@ footer.site-footer {
     max-width: var(--sitewidth);
   }
 }
+
+body {
+  border: 1px solid blue;
+}
