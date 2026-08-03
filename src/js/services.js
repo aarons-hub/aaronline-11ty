@@ -39,6 +39,47 @@
   );
   var isServicesPage = page.classList.contains("services-page");
 
+  function detectPathPrefix() {
+    var homeLink = document.querySelector(".nav-links-group-main a[href]");
+    if (!homeLink) {
+      return "/";
+    }
+
+    var href = homeLink.getAttribute("href") || "/";
+    if (!href.startsWith("/")) {
+      return "/";
+    }
+
+    return href.endsWith("/") ? href : href + "/";
+  }
+
+  var pathPrefix = detectPathPrefix();
+
+  function resolveAssetPath(value) {
+    if (!value) {
+      return "";
+    }
+
+    if (
+      value.startsWith("http://") ||
+      value.startsWith("https://") ||
+      value.startsWith("//") ||
+      value.startsWith("data:")
+    ) {
+      return value;
+    }
+
+    if (!value.startsWith("/")) {
+      return value;
+    }
+
+    if (pathPrefix !== "/" && !value.startsWith(pathPrefix)) {
+      return pathPrefix.slice(0, -1) + value;
+    }
+
+    return value;
+  }
+
   function normalize(value) {
     return (value || "").toLowerCase().trim();
   }
@@ -195,13 +236,13 @@
     var category = thumb.dataset.category || "Unknown";
     var tags = parseTags(thumb.dataset.tags);
 
-    heroBase.src = thumb.dataset.base;
+    heroBase.src = resolveAssetPath(thumb.dataset.base);
     heroBase.alt = title;
 
     setLayer(
       heroWrapOne,
       heroImageOne,
-      thumb.dataset.imageOne,
+      resolveAssetPath(thumb.dataset.imageOne),
       title + " image one",
       {
         parentTop: thumb.dataset.imageOneParentTop,
@@ -216,7 +257,7 @@
     setLayer(
       heroWrapTwo,
       heroImageTwo,
-      thumb.dataset.imageTwo,
+      resolveAssetPath(thumb.dataset.imageTwo),
       title + " image two",
       {
         parentTop: thumb.dataset.imageTwoParentTop,
@@ -228,13 +269,13 @@
         imageTransform: thumb.dataset.imageTwoTransform,
       },
     );
-    setImage(heroMask, thumb.dataset.mask, title + " mask");
+    setImage(heroMask, resolveAssetPath(thumb.dataset.mask), title + " mask");
 
     if (thumb.dataset.videoThumb) {
       heroVideoLayer.classList.remove("is-hidden");
       setImage(
         heroVideoThumb,
-        thumb.dataset.videoThumb,
+        resolveAssetPath(thumb.dataset.videoThumb),
         title + " video preview",
       );
       applyWrapperStyle(
@@ -264,7 +305,7 @@
       heroVideoWrap.classList.remove("is-hidden");
       heroVideoLink.href = "#";
       heroVideoLink.textContent = "Play video";
-      state.activeVideoSrc = thumb.dataset.videoSrc;
+      state.activeVideoSrc = resolveAssetPath(thumb.dataset.videoSrc);
       state.activeVideoTitle = title + " video";
     } else {
       heroVideoWrap.classList.add("is-hidden");
