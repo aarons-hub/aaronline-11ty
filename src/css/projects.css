@@ -145,8 +145,8 @@
 
 .meta-tag {
   font-size: var(--step--1);
-  background-color: var(--base-t40);
-  border: 1px solid var(--base-t50);
+  background-color: var(--base-t10);
+  border: 1px solid var(--base-t20);
   color: var(--base-white);
   letter-spacing: 0.3px;
   border-radius: 999px;
