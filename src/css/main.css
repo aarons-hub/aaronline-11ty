@@ -183,7 +183,7 @@ p {
   position: absolute;
   border-radius: 20px;
   background-color: var(--base);
-  background-image: url("/images/cover-02.jpg");
+  background-image: url("../images/cover-02.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
