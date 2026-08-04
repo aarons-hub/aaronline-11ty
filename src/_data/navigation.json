@@ -22,6 +22,10 @@
         {
           "title": "Pricing",
           "url": "/pricing/"
+        },
+        {
+          "title": "Test",
+          "url": "/ajax-test/"
         }
       ]
     },

@@ -5,6 +5,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addWatchTarget("./src/js");
   eleventyConfig.addPassthroughCopy("./src/images");
   eleventyConfig.addWatchTarget("./src/images");
+  eleventyConfig.addPassthroughCopy({
+    "./src/_data/projects.json": "data/projects.json",
+  });
+  eleventyConfig.addWatchTarget("./src/_data/projects.json");
   eleventyConfig.addPassthroughCopy("./src/favicon.svg");
   eleventyConfig.addPassthroughCopy({
     "node_modules/@emailjs/browser/dist/email.min.js":

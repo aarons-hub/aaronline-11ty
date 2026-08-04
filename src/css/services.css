@@ -230,7 +230,7 @@
         }
         .thumb-parent-wrapper {
           position: absolute;
-          perspective: 1200px;
+          perspective: 300px;
           pointer-events: none;
           z-index: 2;
           .thumb-overlay {

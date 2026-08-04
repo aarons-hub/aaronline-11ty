@@ -17,7 +17,7 @@ templateEngineOverride: njk
 		</p>
     	<div class="category-filters services-filters" aria-label="Service category filters">
     		<button type="button" class="category-button is-active" data-category="Website">Web services</button>
-    		<button type="button" class="category-button" data-category="Logo design">Logo design</button>
+    		<button type="button" class="category-button" data-category="Logo design">Brand design</button>
     		<button type="button" class="category-button" data-category="Photography">Photography</button>
     	</div>
     	<div class="project-meta services-meta">
@@ -28,26 +28,6 @@ templateEngineOverride: njk
     	</div>
     </aside>
     <section class="services-stage" aria-live="polite">
-    	<div class="hero-frame">
-    		<img class="hero-base" data-hero-base src="" alt="Active service showcase">
-    		<div class="parent-wrapper is-hidden" data-hero-wrap-one>
-    			<img class="hero-overlay" data-hero-image-one src="" alt="Active service image one">
-    		</div>
-    		<div class="parent-wrapper is-hidden" data-hero-wrap-two>
-    			<img class="hero-overlay" data-hero-image-two src="" alt="Active service image two">
-    		</div>
-    		<a class="video-wrapper is-hidden" data-hero-video-layer href="#" target="_blank" rel="noopener" aria-label="Open video preview">
-    			<img class="hero-video-thumb" data-hero-video-thumb src="" alt="Video preview">
-    		</a>
-    		<img class="hero-mask is-hidden" data-hero-mask src="" alt="Active service mask overlay">
-    	</div>
-    	<div class="hero-video is-hidden" data-hero-video-wrap>
-    		<a class="hero-video-link" data-hero-video-link href="#" target="_blank" rel="noopener">Open video source</a>
-    	</div>
-    	<div class="thumb-toolbar">
-    		<button type="button" class="thumb-nav" data-thumb-prev aria-label="Previous examples">&#10094;</button>
-    		<button type="button" class="thumb-nav" data-thumb-next aria-label="Next examples">&#10095;</button>
-    	</div>
     	<div class="thumb-strip" data-thumb-strip>
     		{% for group in projects.groups %}
     			{% set groupIndex = loop.index0 %}
@@ -147,6 +127,26 @@ templateEngineOverride: njk
     		</button>
     			{% endfor %}
     		{% endfor %}
+    	</div>
+       	<div class="hero-frame">
+    		<img class="hero-base" data-hero-base src="" alt="Active service showcase">
+    		<div class="parent-wrapper is-hidden" data-hero-wrap-one>
+    			<img class="hero-overlay" data-hero-image-one src="" alt="Active service image one">
+    		</div>
+    		<div class="parent-wrapper is-hidden" data-hero-wrap-two>
+    			<img class="hero-overlay" data-hero-image-two src="" alt="Active service image two">
+    		</div>
+    		<a class="video-wrapper is-hidden" data-hero-video-layer href="#" target="_blank" rel="noopener" aria-label="Open video preview">
+    			<img class="hero-video-thumb" data-hero-video-thumb src="" alt="Video preview">
+    		</a>
+    		<img class="hero-mask is-hidden" data-hero-mask src="" alt="Active service mask overlay">
+    	</div>
+    	<div class="hero-video is-hidden" data-hero-video-wrap>
+    		<a class="hero-video-link" data-hero-video-link href="#" target="_blank" rel="noopener">Open video source</a>
+    	</div>
+    	<div class="thumb-toolbar">
+    		<button type="button" class="thumb-nav" data-thumb-prev aria-label="Previous examples">&#10094;</button>
+    		<button type="button" class="thumb-nav" data-thumb-next aria-label="Next examples">&#10095;</button>
     	</div>
     </section>
     <div class="video-modal is-hidden" data-video-modal aria-hidden="true">
