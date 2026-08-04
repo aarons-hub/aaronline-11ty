@@ -3,7 +3,7 @@ title: AJAX Test
 layout: base.njk
 ---
 
-<section class="ajax-test-page" data-projects-url="{{ '/data/projects.json' | url }}">
+<section class="ajax-test-page" data-projects-url="{{ '/data/projects.json' | url }}" data-asset-prefix="{{ '/' | url }}">
 	<h2>AJAX test</h2>
 	<p>Click a button to fetch the public copy of <strong>projects.json</strong> and render items where the chosen featured flag is true, including related images.</p>
 	<div class="ajax-test-actions">
@@ -99,6 +99,7 @@ layout: base.njk
 	var status = page.querySelector("[data-status]");
 	var results = page.querySelector("[data-results]");
 	var dataUrl = page.getAttribute("data-projects-url") || "/data/projects.json";
+	var assetPrefix = page.getAttribute("data-asset-prefix") || "/";
 
 	function escapeHtml(value) {
 		return String(value)
@@ -111,6 +112,31 @@ layout: base.njk
 
 	function isTruthy(value) {
 		return String(value).toLowerCase().trim() === "true";
+	}
+
+	function resolveAssetPath(value) {
+		if (!value) {
+			return "";
+		}
+
+		if (
+			value.indexOf("http://") === 0 ||
+			value.indexOf("https://") === 0 ||
+			value.indexOf("//") === 0 ||
+			value.indexOf("data:") === 0
+		) {
+			return value;
+		}
+
+		if (value.charAt(0) !== "/") {
+			return value;
+		}
+
+		if (assetPrefix !== "/" && value.indexOf(assetPrefix) !== 0) {
+			return assetPrefix.replace(/\/$/, "") + value;
+		}
+
+		return value;
 	}
 
 	function getRelatedImages(item) {
@@ -135,7 +161,9 @@ layout: base.njk
 			"<ul class=\"ajax-test-list\">",
 			items
 				.map(function (item) {
-					var relatedImages = getRelatedImages(item.source);
+					var relatedImages = getRelatedImages(item.source).map(function (image) {
+						return resolveAssetPath(image);
+					});
 
 					return (
 						"<li class=\"ajax-test-card\">" +
