@@ -18,6 +18,7 @@ layout: base.njk
 	.ajax-test-page {
 		max-width: 1100px;
 		margin: 0 auto;
+        border: 1px solid blue;
 	}
 
 	.ajax-test-button {
