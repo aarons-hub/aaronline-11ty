@@ -71,6 +71,23 @@
     });
   }
 
+  function configureDecorativeImage(image) {
+    if (!image) {
+      return;
+    }
+
+    image.alt = "";
+    image.setAttribute("aria-hidden", "true");
+    image.setAttribute("role", "presentation");
+    image.addEventListener(
+      "error",
+      function () {
+        image.style.display = "none";
+      },
+      { once: true },
+    );
+  }
+
   function trackMediaLoading(media, images) {
     if (!media) {
       return;
@@ -116,9 +133,8 @@
     wrapper.className = "thumb-parent-wrapper";
     image.className = "thumb-overlay";
     image.src = resolveAssetPath(layer.src);
-    image.alt = "";
     image.loading = "lazy";
-    image.setAttribute("aria-hidden", "true");
+    configureDecorativeImage(image);
 
     setLayerStyle(wrapper, {
       top: parent.top || "0%",
@@ -149,9 +165,8 @@
     videoWrapper.className = "thumb-video-wrapper";
     videoThumb.className = "thumb-video-thumb";
     videoThumb.src = resolveAssetPath(movieFile.thumbnail);
-    videoThumb.alt = "";
     videoThumb.loading = "lazy";
-    videoThumb.setAttribute("aria-hidden", "true");
+    configureDecorativeImage(videoThumb);
 
     setLayerStyle(videoWrapper, {
       top: wrapper.top || "0%",
@@ -357,8 +372,7 @@
 
     if (baseImageNode) {
       baseImageNode.src = baseImage;
-      baseImageNode.alt = "";
-      baseImageNode.setAttribute("aria-hidden", "true");
+      configureDecorativeImage(baseImageNode);
       mediaImages.push(baseImageNode);
     }
 
@@ -385,9 +399,8 @@
       var mask = document.createElement("img");
       mask.className = "thumb-mask";
       mask.src = maskImage;
-      mask.alt = "";
       mask.loading = "lazy";
-      mask.setAttribute("aria-hidden", "true");
+      configureDecorativeImage(mask);
       media.appendChild(mask);
       mediaImages.push(mask);
     }
@@ -518,9 +531,29 @@
       });
   }
 
+  function updateSelectedButton(activeButton) {
+    buttons.forEach(function (button) {
+      button.classList.toggle("selected", button === activeButton);
+    });
+  }
+
   buttons.forEach(function (currentButton) {
     currentButton.addEventListener("click", function () {
+      updateSelectedButton(currentButton);
       loadFeatured(currentButton.dataset.featureField, currentButton);
     });
   });
+
+  var initialButton = buttons.find(function (button) {
+    return button.dataset.featureField === "featuredWebItem";
+  });
+
+  if (!initialButton && buttons.length) {
+    initialButton = buttons[0];
+  }
+
+  if (initialButton) {
+    updateSelectedButton(initialButton);
+    loadFeatured(initialButton.dataset.featureField, initialButton);
+  }
 })();
