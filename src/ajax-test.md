@@ -12,4 +12,15 @@ layout: base.njk
 	</div>
 	<p class="ajax-test-status" data-status>Ready.</p>
 	<div class="ajax-test-results" data-results></div>
+    <template id="ajax-test-card-template">
+    	<li class="ajax-test-card">
+    		<h3 data-card-title></h3>
+    		<p data-card-meta></p>
+    		<div class="ajax-test-thumb">
+    			<div class="thumb-media" data-thumb-media>
+    				<img class="thumb-base" data-thumb-base src="" alt="" loading="lazy">
+    			</div>
+    		</div>
+    	</li>
+    </template>
 </section>

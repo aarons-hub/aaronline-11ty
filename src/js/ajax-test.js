@@ -9,16 +9,12 @@
   );
   var status = page.querySelector("[data-status]");
   var results = page.querySelector("[data-results]");
+  var cardTemplate = page.querySelector("#ajax-test-card-template");
   var dataUrl = page.getAttribute("data-projects-url") || "/data/projects.json";
   var assetPrefix = page.getAttribute("data-asset-prefix") || "/";
 
-  function escapeHtml(value) {
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/\"/g, "&quot;")
-      .replace(/'/g, "&#39;");
+  if (!cardTemplate) {
+    return;
   }
 
   function isTruthy(value) {
@@ -50,131 +46,119 @@
     return value;
   }
 
-  function buildStyleString(styleMap) {
-    return Object.keys(styleMap)
-      .filter(function (key) {
-        return Boolean(styleMap[key]);
-      })
-      .map(function (key) {
-        return key + ": " + styleMap[key];
-      })
-      .join("; ");
+  function setLayerStyle(element, styles) {
+    Object.keys(styles).forEach(function (key) {
+      if (styles[key]) {
+        element.style[key] = styles[key];
+      }
+    });
   }
 
-  function renderOverlayLayer(layer) {
+  function createOverlayLayer(layer) {
     if (!layer || !layer.src) {
-      return "";
+      return null;
     }
 
     var parent = layer.parentWrapper || {};
     var transform = layer.imageTransform || {};
-    var parentStyle = buildStyleString({
+    var wrapper = document.createElement("div");
+    var image = document.createElement("img");
+
+    wrapper.className = "thumb-parent-wrapper";
+    image.className = "thumb-overlay";
+    image.src = resolveAssetPath(layer.src);
+    image.alt = "";
+    image.loading = "lazy";
+    image.setAttribute("aria-hidden", "true");
+
+    setLayerStyle(wrapper, {
       top: parent.top || "0%",
       left: parent.left || "0%",
       width: parent.width || "100%",
       height: parent.height || "100%",
       transform: parent.transform || "none",
     });
-    var imageStyle = buildStyleString({
+
+    setLayerStyle(image, {
       width: transform.width || "100%",
       transform: transform.transform || "none",
     });
 
-    return (
-      '<div class="thumb-parent-wrapper" style="' +
-      escapeHtml(parentStyle) +
-      '">' +
-      '<img class="thumb-overlay" src="' +
-      escapeHtml(resolveAssetPath(layer.src)) +
-      '" alt="" aria-hidden="true" loading="lazy" style="' +
-      escapeHtml(imageStyle) +
-      '">' +
-      "</div>"
-    );
+    wrapper.appendChild(image);
+    return wrapper;
   }
 
-  function renderVideoThumb(movieFile) {
+  function createVideoThumb(movieFile) {
     if (!movieFile || !movieFile.thumbnail) {
-      return "";
+      return null;
     }
 
     var wrapper = movieFile.videoWrapper || {};
-    var wrapperStyle = buildStyleString({
+    var videoWrapper = document.createElement("div");
+    var videoThumb = document.createElement("img");
+
+    videoWrapper.className = "thumb-video-wrapper";
+    videoThumb.className = "thumb-video-thumb";
+    videoThumb.src = resolveAssetPath(movieFile.thumbnail);
+    videoThumb.alt = "";
+    videoThumb.loading = "lazy";
+    videoThumb.setAttribute("aria-hidden", "true");
+
+    setLayerStyle(videoWrapper, {
       top: wrapper.top || "0%",
       left: wrapper.left || "0%",
       width: wrapper.width || "100%",
       height: wrapper.height || "100%",
     });
 
-    return (
-      '<div class="thumb-video-wrapper" style="' +
-      escapeHtml(wrapperStyle) +
-      '">' +
-      '<img class="thumb-video-thumb" src="' +
-      escapeHtml(resolveAssetPath(movieFile.thumbnail)) +
-      '" alt="" aria-hidden="true" loading="lazy">' +
-      "</div>"
-    );
+    videoWrapper.appendChild(videoThumb);
+    return videoWrapper;
   }
 
-  function renderThumbMedia(item, title) {
+  function renderThumbMedia(media, item, title) {
     var baseImage = resolveAssetPath(item["base-img"] || "");
     var maskImage = resolveAssetPath(item["mask-img"] || "");
     var imageOne = item["image-one"] || {};
     var imageTwo = item["image-two"] || {};
     var movieFile = item.movieFile || {};
 
+    var baseImageNode = media.querySelector("[data-thumb-base]");
+
     if (!baseImage) {
-      return "";
+      media.remove();
+      return;
     }
 
-    return (
-      '<div class="thumb-media">' +
-      '<img class="thumb-base" src="' +
-      escapeHtml(baseImage) +
-      '" alt="' +
-      escapeHtml((title || "Project") + " thumbnail") +
-      '" loading="lazy">' +
-      renderOverlayLayer(imageOne) +
-      renderOverlayLayer(imageTwo) +
-      renderVideoThumb(movieFile) +
-      (maskImage
-        ? '<img class="thumb-mask" src="' +
-          escapeHtml(maskImage) +
-          '" alt="" aria-hidden="true" loading="lazy">'
-        : "") +
-      "</div>"
-    );
-  }
+    if (baseImageNode) {
+      baseImageNode.src = baseImage;
+      baseImageNode.alt = (title || "Project") + " thumbnail";
+    }
 
-  function getInlineImageData(item) {
-    var imageOne = item["image-one"] || {};
-    var imageTwo = item["image-two"] || {};
-    var movieFile = item.movieFile || {};
+    var layerOne = createOverlayLayer(imageOne);
+    var layerTwo = createOverlayLayer(imageTwo);
+    var video = createVideoThumb(movieFile);
 
-    return {
-      baseImage: resolveAssetPath(item["base-img"] || ""),
-      maskImage: resolveAssetPath(item["mask-img"] || ""),
-      imageOne: {
-        src: resolveAssetPath(imageOne.src || ""),
-        parentWrapper: imageOne.parentWrapper || {},
-        imageTransform: imageOne.imageTransform || {},
-      },
-      imageTwo: {
-        src: resolveAssetPath(imageTwo.src || ""),
-        parentWrapper: imageTwo.parentWrapper || {},
-        imageTransform: imageTwo.imageTransform || {},
-      },
-      movieFile: {
-        thumbnail: resolveAssetPath(movieFile.thumbnail || ""),
-        src: resolveAssetPath(movieFile.src || ""),
-        videoWrapper: movieFile.videoWrapper || {},
-      },
-    };
-  }
+    if (layerOne) {
+      media.appendChild(layerOne);
+    }
 
-  function toInlineJson(value) {
-    return escapeHtml(JSON.stringify(value, null, 2));
+    if (layerTwo) {
+      media.appendChild(layerTwo);
+    }
+
+    if (video) {
+      media.appendChild(video);
+    }
+
+    if (maskImage) {
+      var mask = document.createElement("img");
+      mask.className = "thumb-mask";
+      mask.src = maskImage;
+      mask.alt = "";
+      mask.loading = "lazy";
+      mask.setAttribute("aria-hidden", "true");
+      media.appendChild(mask);
+    }
   }
 
   function getFieldLabel(featureField) {
@@ -191,34 +175,28 @@
       return;
     }
 
-    results.innerHTML = [
-      '<ul class="ajax-test-list">',
-      items
-        .map(function (item) {
-          var thumbMarkup = renderThumbMedia(item.source, item.title);
-          var inlineData = getInlineImageData(item.source);
+    var list = document.createElement("ul");
+    list.className = "ajax-test-list";
 
-          return (
-            '<li class="ajax-test-card">' +
-            "<h3>" +
-            escapeHtml(item.title || "Untitled") +
-            "</h3>" +
-            "<p>" +
-            escapeHtml(item.group || "") +
-            (item.category ? " | " + escapeHtml(item.category) : "") +
-            "</p>" +
-            '<div class="ajax-test-thumb">' +
-            thumbMarkup +
-            "</div>" +
-            '<pre class="ajax-test-inline-data">' +
-            toInlineJson(inlineData) +
-            "</pre>" +
-            "</li>"
-          );
-        })
-        .join(""),
-      "</ul>",
-    ].join("");
+    items.forEach(function (item) {
+      var cardFragment = cardTemplate.content.cloneNode(true);
+      var title = cardFragment.querySelector("[data-card-title]");
+      var meta = cardFragment.querySelector("[data-card-meta]");
+      var media = cardFragment.querySelector("[data-thumb-media]");
+
+      title.textContent = item.title || "Untitled";
+      meta.textContent =
+        (item.group || "") + (item.category ? " | " + item.category : "");
+
+      if (media) {
+        renderThumbMedia(media, item.source, item.title);
+      }
+
+      list.appendChild(cardFragment);
+    });
+
+    results.innerHTML = "";
+    results.appendChild(list);
 
     status.textContent =
       "Loaded " + items.length + " " + getFieldLabel(featureField) + " items.";
