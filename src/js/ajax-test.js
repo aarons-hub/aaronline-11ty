@@ -10,6 +10,7 @@
   var status = page.querySelector("[data-status]");
   var results = page.querySelector("[data-results]");
   var cardTemplate = page.querySelector("#ajax-test-card-template");
+  var heroInfo = page.querySelector("[data-hero-info]");
   var heroBase = page.querySelector("[data-hero-base]");
   var heroFrame = page.querySelector(".hero-frame");
   var heroWrapOne = page.querySelector("[data-hero-wrap-one]");
@@ -261,11 +262,31 @@
     }
   }
 
-  function renderHero(itemData, title) {
+  function renderHeroInfo(title, group, category) {
+    if (!heroInfo) {
+      return;
+    }
+
+    var heading = title || "Untitled";
+    var meta = (group || "") + (category ? " | " + category : "");
+    var headingNode = document.createElement("h3");
+    var metaNode = document.createElement("p");
+
+    headingNode.textContent = heading;
+    metaNode.textContent = meta;
+
+    heroInfo.innerHTML = "";
+    heroInfo.appendChild(headingNode);
+    heroInfo.appendChild(metaNode);
+  }
+
+  function renderHero(itemData, title, group, category) {
     var imageOne = itemData["image-one"] || {};
     var imageTwo = itemData["image-two"] || {};
     var movieFile = itemData.movieFile || {};
     var heroImages = [];
+
+    renderHeroInfo(title, group, category);
 
     setImage(
       heroBase,
@@ -336,7 +357,8 @@
 
     if (baseImageNode) {
       baseImageNode.src = baseImage;
-      baseImageNode.alt = (title || "Project") + " thumbnail";
+      baseImageNode.alt = "";
+      baseImageNode.setAttribute("aria-hidden", "true");
       mediaImages.push(baseImageNode);
     }
 
@@ -398,18 +420,12 @@
     items.forEach(function (item, index) {
       var cardFragment = cardTemplate.content.cloneNode(true);
       var card = cardFragment.querySelector(".ajax-test-card");
-      var title = cardFragment.querySelector("[data-card-title]");
-      var meta = cardFragment.querySelector("[data-card-meta]");
       var media = cardFragment.querySelector("[data-thumb-media]");
       var itemKey = featureField + "-" + index;
 
       if (card) {
         card.dataset.itemKey = itemKey;
       }
-
-      title.textContent = item.title || "Untitled";
-      meta.textContent =
-        (item.group || "") + (item.category ? " | " + item.category : "");
 
       if (media) {
         renderThumbMedia(media, item.source, item.title);
@@ -420,7 +436,7 @@
           state.activeKey = itemKey;
           state.activeFeatureField = featureField;
           updateActiveCard();
-          renderHero(item.source, item.title);
+          renderHero(item.source, item.title, item.group, item.category);
         });
       }
 
@@ -429,6 +445,8 @@
           key: itemKey,
           source: item.source,
           title: item.title,
+          group: item.group,
+          category: item.category,
         };
       }
 
@@ -442,7 +460,12 @@
       state.activeKey = firstItem.key;
       state.activeFeatureField = featureField;
       updateActiveCard();
-      renderHero(firstItem.source, firstItem.title);
+      renderHero(
+        firstItem.source,
+        firstItem.title,
+        firstItem.group,
+        firstItem.category,
+      );
     }
 
     status.textContent =

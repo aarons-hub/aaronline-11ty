@@ -12,7 +12,9 @@ layout: base.njk
         <button type="button" class="ajax-test-button" data-load-featured data-feature-field="featuredPhotoItem">Load photo logo items</button>
 	</div>
 	<p class="ajax-test-status" data-status>Ready.</p>
-	<div class="ajax-test-hero">
+	<div class="ajax-test-results" data-results></div>
+    	<div class="ajax-test-hero">
+		<div class="hero-info" data-hero-info></div>
 		<div class="hero-frame">
 			<div class="hero-loader" data-hero-loader aria-hidden="true"></div>
 			<img class="hero-base" data-hero-base src="" alt="Active project showcase">
@@ -31,11 +33,8 @@ layout: base.njk
 			<a class="hero-video-link" data-hero-video-link href="#" target="_blank" rel="noopener">Open video source</a>
 		</div>
 	</div>
-	<div class="ajax-test-results" data-results></div>
     <template id="ajax-test-card-template">
     	<li class="ajax-test-card">
-    		<h3 data-card-title></h3>
-    		<p data-card-meta></p>
     		<div class="ajax-test-thumb">
     			<div class="thumb-media" data-thumb-media>
 	    			<div class="thumb-loader" data-thumb-loader aria-hidden="true"></div>
@@ -44,5 +43,4 @@ layout: base.njk
     		</div>
     	</li>
     </template>
-
 </section>
