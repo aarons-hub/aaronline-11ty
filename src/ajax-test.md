@@ -3,7 +3,7 @@ title: AJAX Test
 layout: base.njk
 ---
 
-<section class="ajax-test-page">
+<section class="ajax-test-page" data-projects-url="{{ '/data/projects.json' | url }}">
 	<h2>AJAX test</h2>
 	<p>Click a button to fetch the public copy of <strong>projects.json</strong> and render items where the chosen featured flag is true, including related images.</p>
 	<div class="ajax-test-actions">
@@ -98,7 +98,7 @@ layout: base.njk
 	var buttons = Array.prototype.slice.call(page.querySelectorAll("[data-load-featured]"));
 	var status = page.querySelector("[data-status]");
 	var results = page.querySelector("[data-results]");
-	var dataUrl = "/data/projects.json";
+	var dataUrl = page.getAttribute("data-projects-url") || "/data/projects.json";
 
 	function escapeHtml(value) {
 		return String(value)
