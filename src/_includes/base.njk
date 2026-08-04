@@ -32,8 +32,8 @@
       <h1 class="page-title">{{ title }}</h1>
       {{ content | safe }}
     </main>
-    <script src="{{ '/js/main.js' | url }}" defer></script>
     {% include "footer.njk" %}
+    <script src="{{ '/js/main.js' | url }}" defer></script>
     {% if page.url == '/projects/' %}
     <script src="{{ '/js/projects.js' | url }}" defer></script>
     {% endif %}

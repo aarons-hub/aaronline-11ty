@@ -37,6 +37,28 @@
   border: 1px solid rgba(26, 26, 26, 0.1);
 }
 
+.hero-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  width: 42px;
+  height: 42px;
+  margin-top: -21px;
+  margin-left: -21px;
+  border: 3px solid rgba(15, 118, 185, 0.18);
+  border-top-color: var(--base);
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  animation: ajax-thumb-spin 0.8s linear infinite;
+}
+
+.hero-frame.is-loading .hero-loader {
+  opacity: 1;
+}
+
 .hero-base,
 .hero-mask {
   width: 100%;
@@ -142,6 +164,34 @@
   border-radius: 12px;
   overflow: hidden;
   background: #f4f4f4;
+}
+
+.thumb-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
+  margin-left: -18px;
+  border: 3px solid rgba(15, 118, 185, 0.18);
+  border-top-color: var(--base);
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  animation: ajax-thumb-spin 0.8s linear infinite;
+}
+
+.thumb-media.is-loading .thumb-loader {
+  opacity: 1;
+}
+
+@keyframes ajax-thumb-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .thumb-base,

@@ -11,6 +11,7 @@
   var results = page.querySelector("[data-results]");
   var cardTemplate = page.querySelector("#ajax-test-card-template");
   var heroBase = page.querySelector("[data-hero-base]");
+  var heroFrame = page.querySelector(".hero-frame");
   var heroWrapOne = page.querySelector("[data-hero-wrap-one]");
   var heroWrapTwo = page.querySelector("[data-hero-wrap-two]");
   var heroImageOne = page.querySelector("[data-hero-image-one]");
@@ -66,6 +67,38 @@
       if (styles[key]) {
         element.style[key] = styles[key];
       }
+    });
+  }
+
+  function trackMediaLoading(media, images) {
+    if (!media) {
+      return;
+    }
+
+    var pending = images.filter(function (image) {
+      return image && !(image.complete && image.naturalWidth > 0);
+    }).length;
+
+    media.classList.toggle("is-loading", pending > 0);
+
+    if (!pending) {
+      return;
+    }
+
+    images.forEach(function (image) {
+      if (!image || (image.complete && image.naturalWidth > 0)) {
+        return;
+      }
+
+      var settle = function () {
+        pending -= 1;
+        if (pending <= 0) {
+          media.classList.remove("is-loading");
+        }
+      };
+
+      image.addEventListener("load", settle, { once: true });
+      image.addEventListener("error", settle, { once: true });
     });
   }
 
@@ -232,16 +265,32 @@
     var imageOne = itemData["image-one"] || {};
     var imageTwo = itemData["image-two"] || {};
     var movieFile = itemData.movieFile || {};
+    var heroImages = [];
 
     setImage(
       heroBase,
       resolveAssetPath(itemData["base-img"] || ""),
       (title || "Project") + " showcase",
     );
+    if (heroBase && heroBase.getAttribute("src")) {
+      heroImages.push(heroBase);
+    }
 
     setHeroLayer(heroWrapOne, heroImageOne, imageOne, title, "image one");
     setHeroLayer(heroWrapTwo, heroImageTwo, imageTwo, title, "image two");
     setHeroVideo(movieFile, title);
+
+    if (heroImageOne && heroImageOne.getAttribute("src")) {
+      heroImages.push(heroImageOne);
+    }
+
+    if (heroImageTwo && heroImageTwo.getAttribute("src")) {
+      heroImages.push(heroImageTwo);
+    }
+
+    if (heroVideoThumb && heroVideoThumb.getAttribute("src")) {
+      heroImages.push(heroVideoThumb);
+    }
 
     if (itemData["mask-img"]) {
       setImage(
@@ -249,10 +298,15 @@
         resolveAssetPath(itemData["mask-img"]),
         (title || "Project") + " mask overlay",
       );
+      if (heroMask && heroMask.getAttribute("src")) {
+        heroImages.push(heroMask);
+      }
     } else if (heroMask) {
       heroMask.classList.add("is-hidden");
       heroMask.removeAttribute("src");
     }
+
+    trackMediaLoading(heroFrame, heroImages);
   }
 
   function updateActiveCard() {
@@ -271,6 +325,7 @@
     var imageOne = item["image-one"] || {};
     var imageTwo = item["image-two"] || {};
     var movieFile = item.movieFile || {};
+    var mediaImages = [];
 
     var baseImageNode = media.querySelector("[data-thumb-base]");
 
@@ -282,6 +337,7 @@
     if (baseImageNode) {
       baseImageNode.src = baseImage;
       baseImageNode.alt = (title || "Project") + " thumbnail";
+      mediaImages.push(baseImageNode);
     }
 
     var layerOne = createOverlayLayer(imageOne);
@@ -290,14 +346,17 @@
 
     if (layerOne) {
       media.appendChild(layerOne);
+      mediaImages.push(layerOne.querySelector("img"));
     }
 
     if (layerTwo) {
       media.appendChild(layerTwo);
+      mediaImages.push(layerTwo.querySelector("img"));
     }
 
     if (video) {
       media.appendChild(video);
+      mediaImages.push(video.querySelector("img"));
     }
 
     if (maskImage) {
@@ -308,7 +367,10 @@
       mask.loading = "lazy";
       mask.setAttribute("aria-hidden", "true");
       media.appendChild(mask);
+      mediaImages.push(mask);
     }
+
+    trackMediaLoading(media, mediaImages);
   }
 
   function getFieldLabel(featureField) {

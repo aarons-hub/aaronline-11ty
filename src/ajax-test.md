@@ -14,6 +14,7 @@ layout: base.njk
 	<p class="ajax-test-status" data-status>Ready.</p>
 	<div class="ajax-test-hero">
 		<div class="hero-frame">
+			<div class="hero-loader" data-hero-loader aria-hidden="true"></div>
 			<img class="hero-base" data-hero-base src="" alt="Active project showcase">
 			<div class="parent-wrapper is-hidden" data-hero-wrap-one>
 				<img class="hero-overlay" data-hero-image-one src="" alt="Active project image one">
@@ -37,6 +38,7 @@ layout: base.njk
     		<p data-card-meta></p>
     		<div class="ajax-test-thumb">
     			<div class="thumb-media" data-thumb-media>
+	    			<div class="thumb-loader" data-thumb-loader aria-hidden="true"></div>
     				<img class="thumb-base" data-thumb-base src="" alt="" loading="lazy">
     			</div>
     		</div>
