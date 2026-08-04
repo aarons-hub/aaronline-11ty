@@ -1,0 +1,120 @@
+.ajax-test-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ajax-test-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ajax-test-button {
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--near-black);
+  color: var(--base-white);
+  font: inherit;
+  cursor: pointer;
+}
+
+.ajax-test-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.ajax-test-results {
+  margin-top: 20px;
+}
+
+.ajax-test-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.ajax-test-card {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.ajax-test-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.ajax-test-card p {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+}
+
+.ajax-test-thumb {
+  margin-bottom: 12px;
+}
+
+.thumb-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.thumb-base,
+.thumb-mask {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-mask {
+  z-index: 4;
+}
+
+.thumb-parent-wrapper {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  perspective: 300px;
+}
+
+.thumb-overlay {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+}
+
+.thumb-video-wrapper {
+  position: absolute;
+  z-index: 3;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.thumb-video-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ajax-test-inline-data {
+  margin: 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: #111;
+  color: #f4f4f4;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  overflow-x: auto;
+}
