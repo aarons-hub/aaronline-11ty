@@ -166,7 +166,7 @@
   inset: 0;
   z-index: 5;
   overflow: hidden;
-  background: rgba(15, 118, 185, 0.08);
+  background: rgba(255, 255, 255, 1);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
@@ -181,9 +181,8 @@
   height: 100%;
   background: linear-gradient(
     90deg,
-    transparent,
-    rgba(15, 118, 185, 0.25),
-    transparent
+    rgba(255, 255, 255, 1) 0%,
+    rgba(214, 214, 214, 1) 100%
   );
   animation: ajax-thumb-shimmer 1.3s ease-in-out infinite;
 }
