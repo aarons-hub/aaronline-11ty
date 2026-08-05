@@ -1,5 +1,61 @@
 <header class="site-header">
-  <nav class="site-nav">
+  <nav class="site-nav desktop" aria-label="Main navigation">
+    <div class="site-logo">
+      <svg width="72" height="48" viewBox="0 0 72 48" fill="none">
+        <path d="M24 16C28.4183 16 32 19.5817 32 24C32 28.4183 28.4183 32 24 32C19.5817 32 16 28.4183 16 24C16 19.5817 19.5817 16 24 16ZM24 20C21.7909 20 20 21.7909 20 24C20 26.2091 21.7909 28 24 28C26.2091 28 28 26.2091 28 24C28 21.7909 26.2091 20 24 20Z" fill="white"></path>
+        <rect x="24" y="28" width="24" height="4" fill="white"></rect>
+        <rect x="48" y="28" width="4" height="4" fill="white"></rect>
+        <rect x="52" y="32" width="4" height="4" fill="#D6FD70"></rect>
+        <rect x="56" y="36" width="4" height="4" fill="white" fill-opacity="0.7"></rect>
+        <rect x="48" y="40" width="4" height="4" fill="white"></rect>
+        <rect x="52" y="44" width="4" height="4" fill="#D6FD70" fill-opacity="0.5"></rect>
+        <rect x="60" y="44" width="4" height="4" fill="#D6FD70" fill-opacity="0.3"></rect>
+        <rect x="60" y="28" width="4" height="4" fill="white"></rect>
+        <rect x="68" y="28" width="4" height="4" fill="white" fill-opacity="0.5"></rect>
+        <path d="M24 0C37.2548 0 48 10.7452 48 24C48 25.363 47.8843 26.6991 47.666 28H43.5996C43.862 26.7075 44 25.3699 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44H48V48H24C10.7452 48 0 37.2548 0 24C0 10.7452 10.7452 0 24 0Z" fill="white"></path>
+        <path d="M24 8C32.8366 8 40 15.1634 40 24C40 25.3812 39.8251 26.7215 39.4961 28H35.3145C35.7569 26.7486 36 25.4029 36 24C36 17.3726 30.6274 12 24 12C17.3726 12 12 17.3726 12 24C12 30.6274 17.3726 36 24 36H48V40H24C15.1634 40 8 32.8366 8 24C8 15.1634 15.1634 8 24 8Z" fill="white"></path>
+      </svg>
+      <span class="sr-only">Aaronline Design</span>
+    </div>
+    {% for group in navigation.groups %}
+    <ul class="nav-links-container nav-links-group-{{ group.name }}">
+      {% for item in group.items %}
+      <li class="nav-link-item{% if item.megaMenu %} has-submenu{% endif %}">
+        <a href="{{ item.url | url }}">{{ item.title }}</a>
+        {% if item.megaMenu %}
+        <section class="submenu mega-menu" aria-label="{{ item.title }} submenu">
+          <div class="mega-menu-intro">
+            <p class="mega-menu-eyebrow">{{ item.megaMenu.intro.title }}</p>
+            <p class="mega-menu-copy">{{ item.megaMenu.intro.text }}</p>
+          </div>
+          <div class="mega-menu-columns">
+            {% for column in item.megaMenu.columns %}
+            <div class="mega-menu-column">
+              <h3>{{ column.heading }}</h3>
+              <ul>
+                {% for link in column.links %}
+                <li><a href="{{ link.url | url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endfor %}
+          </div>
+          {% if item.megaMenu.featured %}
+          <a class="mega-menu-featured" href="{{ item.megaMenu.featured.url | url }}">
+            <p class="mega-menu-eyebrow">{{ item.megaMenu.featured.eyebrow }}</p>
+            <h3>{{ item.megaMenu.featured.title }}</h3>
+            <p class="mega-menu-copy">{{ item.megaMenu.featured.text }}</p>
+            <span>{{ item.megaMenu.featured.linkTitle }}</span>
+          </a>
+          {% endif %}
+        </section>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </nav>
+  <nav class="site-nav mobile" aria-label="Main navigation">
     <div class="site-logo">
       <svg width="72" height="48" viewBox="0 0 72 48" fill="none">
         <path d="M24 16C28.4183 16 32 19.5817 32 24C32 28.4183 28.4183 32 24 32C19.5817 32 16 28.4183 16 24C16 19.5817 19.5817 16 24 16ZM24 20C21.7909 20 20 21.7909 20 24C20 26.2091 21.7909 28 24 28C26.2091 28 28 26.2091 28 24C28 21.7909 26.2091 20 24 20Z" fill="white"></path>

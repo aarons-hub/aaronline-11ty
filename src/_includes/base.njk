@@ -7,7 +7,8 @@
     <title>{{ title }} | Aarononline Design</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}" />
     {% if page.url == '/' %}
     <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
@@ -26,12 +27,13 @@
     {% endif %}
   </head>
   <body>
-    <div class="cover-bg"></div>
+    <div class="cover-bg">
     {% include "header.njk" %}
     <main class="site-main">
       <h1 class="page-title">{{ title }}</h1>
       {{ content | safe }}
     </main>
+    </div>
     {% include "footer.njk" %}
     <script src="{{ '/js/main.js' | url }}" defer></script>
     {% if page.url == '/projects/' %}
@@ -47,5 +49,6 @@
     {% if page.url == '/ajax-test/' %}
     <script src="{{ '/js/ajax-test.js' | url }}" defer></script>
     {% endif %}
+  
   </body>
 </html>
