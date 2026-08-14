@@ -1,5 +1,5 @@
 (function () {
-  var page = document.querySelector(".site-main");
+  var page = document.querySelector(".contact-form-shell");
   if (!page) {
     return;
   }

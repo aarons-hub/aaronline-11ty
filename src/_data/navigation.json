@@ -25,15 +25,15 @@
                 "links": [
                   {
                     "title": "Landing pages",
-                    "url": "/services/#web-services"
+                    "url": "/services/web-services/"
                   },
                   {
                     "title": "WordPress builds",
-                    "url": "/services/#web-services"
+                    "url": "/services/web-services/"
                   },
                   {
                     "title": "Site refreshes",
-                    "url": "/services/#web-services"
+                    "url": "/services/web-services/"
                   }
                 ]
               },
@@ -77,13 +77,14 @@
               "title": "Explore recent service examples",
               "text": "Browse web, identity, and photo work in the interactive services showcase.",
               "url": "/services/",
-              "linkTitle": "Open services"
+              "linkTitle": "Open services",
+              "image": "/images/lime-web-002.png"
             }
           }
         },
         {
-          "title": "Projects",
-          "url": "/projects/"
+          "title": "Ajax Projects",
+          "url": "/ajax-projects/"
         },
         {
           "title": "Pricing",
@@ -92,6 +93,10 @@
         {
           "title": "Test",
           "url": "/ajax-test/"
+        },
+        {
+          "title": "About 2",
+          "url": "/web-designer-brisbane/"
         }
       ]
     },

@@ -3,17 +3,71 @@ title: About
 layout: base.njk
 ---
 
-## This is the about page
-
-**Lorem ipsum dolor sit amet, consectetur adipiscing elit.**
-
-<h1>Heading 1</h1>
-<h2>Heading 2</h2>
-<h3>Heading 3</h3>
-<h4>Heading 4</h4>
-
-Mauris commodo augue ante, ac volutpat dui tempus in. Morbi eleifend, mi vehicula sagittis scelerisque, sapien velit egestas ex, nec molestie velit velit at urna. Integer eu lectus at justo venenatis facilisis ac ac tellus.
-
-Aenean varius est a ante semper, id blandit sem convallis. Maecenas vel nunc tincidunt, tempor augue nec, gravida augue. Aenean ultrices neque et convallis mattis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-
-Mauris feugiat fringilla odio, sit amet blandit orci elementum id. Sed ut velit egestas, lacinia leo ac, iaculis lectus. Quisque consequat facilisis lorem non suscipit. Quisque nec urna et dui finibus semper. Quisque ultrices finibus est, et accumsan ante condimentum ac. Nulla tincidunt iaculis nisl, ac pellentesque mi finibus vel. Phasellus et mauris et sapien malesuada dignissim sit amet vel odio.
+<section>
+  <div class="container off-white">
+    <div class="row gap-60">
+      <div class="col">
+        <p class="section-label">Pipely consulting</p>
+        <h3 class="about-heading">
+          With over a decade of experience, we deliver tailored solutions that
+          empower your business to grow.
+        </h3>
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="spacer-72"></div>
+    <div class="row gap-60">
+      <div class="col">
+        <div class="card">
+          <p class="section-label">Complete customer satisfaction</p>
+          <div class="spacer-72"></div>
+          <h2>95%</h2>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card candy-pink">
+          <p class="section-label">Complete customer satisfaction</p>
+          <div class="spacer-72"></div>
+          <h2>95%</h2>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card light-purple">
+          <p class="section-label">Complete customer satisfaction</p>
+          <div class="spacer-72"></div>
+          <h2>95%</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="spacer-24"></div>
+<section>
+  <div class="container yellow-green-t30">
+    <div class="row gap-60">
+      <div class="col">
+        <div class="cta-text-group">
+          <p class="section-label">Ready to join us?</p>
+          <h2 class="cta-heading">Ready to elevate your business?</h2>
+          <p>
+            Aenean varius est a ante semper, id blandit sem convallis. Maecenas
+            vel nunc tincidunt, tempor augue nec, gravida augue. Aenean ultrices
+            neque et convallis mattis.
+          </p>
+        </div>
+        <div class="spacer-72"></div>
+        <a class="btn" href="#">Click me</a>
+      </div>
+      <div class="col">
+        <div class="cta-media">
+          <img
+            class="media"
+            src="/images/lime-web-002.png"
+            alt="Decoration"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

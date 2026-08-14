@@ -1,0 +1,287 @@
+.ajax-test-page {
+  display: flex;
+  gap: 30px;
+  .aside {
+    flex: 1;
+  }
+  .section {
+    flex: 3;
+  }
+}
+
+ul.ajax-test-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-height: 205px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 8px;
+  li.ajax-test-card {
+    cursor: pointer;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+    .thumb-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      overflow: hidden;
+    }
+  }
+}
+
+.ajax-test-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ajax-test-button {
+  padding: var(--btn-padding);
+  color: var(--near-black);
+  background-color: var(--lime-green);
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+  font-family: var(--sitefont);
+  font-size: var(--step-0);
+  width: fit-content;
+  &.selected {
+    background: var(--near-black);
+    color: var(--base-white);
+  }
+}
+
+.ajax-test-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.ajax-test-status {
+  display: none;
+}
+
+.ajax-test-hero {
+  margin-top: 14px;
+}
+
+.hero-frame {
+  position: relative;
+  width: 100%;
+}
+
+.hero-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.hero-loader:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(214, 214, 214, 1) 100%
+  );
+  animation: ajax-hero-shimmer 1.3s ease-in-out infinite;
+  transition: opacity 1s ease;
+}
+
+.hero-frame.is-loading .hero-loader {
+  opacity: 1;
+}
+
+@keyframes ajax-hero-shimmer {
+  100% {
+    left: 150%;
+  }
+}
+
+.hero-base,
+.hero-mask {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+}
+
+.parent-wrapper {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  perspective: 2000px;
+}
+
+.hero-overlay {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+}
+
+.video-wrapper {
+  position: absolute;
+  display: block;
+  z-index: 3;
+  overflow: hidden;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.hero-video-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-video {
+  margin-top: 10px;
+}
+
+.hero-video-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--highlight);
+  color: var(--near-black);
+  text-decoration: none;
+}
+
+.hero-video-link:hover {
+  background: var(--near-black);
+  color: var(--base-white);
+}
+
+.ajax-test-results {
+  margin-top: 20px;
+}
+
+.ajax-test-card {
+  padding: 0px;
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.ajax-test-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.ajax-test-card p {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+}
+
+.thumb-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.thumb-loader::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(214, 214, 214, 1) 100%
+  );
+  animation: ajax-thumb-shimmer 1.3s ease-in-out infinite;
+  transition: opacity 1s ease;
+}
+
+.thumb-media.is-loading .thumb-loader {
+  opacity: 1;
+}
+
+@keyframes ajax-thumb-shimmer {
+  100% {
+    left: 150%;
+  }
+}
+
+.thumb-base,
+.thumb-mask {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-mask {
+  z-index: 4;
+}
+
+.thumb-parent-wrapper {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  perspective: 300px;
+}
+
+.thumb-overlay {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+}
+
+.thumb-video-wrapper {
+  position: absolute;
+  z-index: 3;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.thumb-video-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ajax-test-card:hover {
+}
+
+.ajax-test-card.is-active {
+  border: 4px solid var(--near-black);
+}
+
+.is-hidden {
+  display: none;
+}
