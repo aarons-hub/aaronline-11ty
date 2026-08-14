@@ -21,7 +21,7 @@ needsContactForm: true
         <div class="cta-media">
           <img
             class="media"
-            src="/images/young-woman-002.webp"
+            src="../images/young-woman-002.webp"
             alt="Young confident woman"
             loading="lazy"
           />
@@ -124,7 +124,7 @@ needsContactForm: true
           <div class="cta-media">
             <img
               class="media"
-              src="/images/thumbsup-smiley.webp"
+              src="../images/thumbsup-smiley.webp"
               alt="Finger pointing"
               loading="lazy"
             />
