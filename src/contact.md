@@ -14,7 +14,7 @@ needsContactForm: true
               <div class="cta-media">
             <img
               class="media"
-              src="/images/thumbsup-smiley.webp"
+              src="../images/thumbsup-smiley.webp"
               alt="Finger pointing"
               loading="lazy"
             />
