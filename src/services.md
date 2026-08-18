@@ -24,7 +24,7 @@ needsContactForm: true
         <div class="cta-media">
           <img
             class="media"
-            src="/images/web-services-001.webp"
+            src="../images/web-services-001.webp"
             alt="Decoration"
             loading="lazy"
           />
@@ -41,7 +41,7 @@ needsContactForm: true
         <div class="cta-media">
           <img
             class="media"
-            src="/images/brand-services-001.webp"
+            src="../images/brand-services-001.webp"
             alt="Decoration"
             loading="lazy"
           />
@@ -75,7 +75,7 @@ needsContactForm: true
         <div class="cta-media">
           <img
             class="media"
-            src="/images/DSC1862.webp"
+            src="../images/DSC1862.webp"
             alt="Decoration"
             loading="lazy"
           />
