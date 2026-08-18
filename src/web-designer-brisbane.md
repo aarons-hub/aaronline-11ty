@@ -4,8 +4,8 @@ layout: base.njk
 ---
 
 <section>
-  <div class="container ink">
-    <div class="row gap-60">
+  <div class="container ink bkg">
+    <div class="row gap-100">
       <div class="col">
         <div class="cta-text-group">
           <p class="section-label">About Aaronline Design</p>
@@ -27,7 +27,7 @@ layout: base.njk
 </section>
 <div class="spacer-24"></div>
 <section>
-  <div class="container paper">
+  <div class="container white tiles">
     <div class="row gap-20">
       <div class="col">
         <div class="card">

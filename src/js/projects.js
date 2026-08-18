@@ -1,26 +1,21 @@
 (function () {
-  var page = document.querySelector(".projects-page");
+  var page = document.querySelector(".ajax-projects-page");
   if (!page) {
     return;
   }
 
-  var partnerButtons = Array.prototype.slice.call(
-    page.querySelectorAll(".partner-button"),
-  );
-  var categoryButtons = Array.prototype.slice.call(
-    page.querySelectorAll(".category-button"),
-  );
-  var thumbs = Array.prototype.slice.call(
-    page.querySelectorAll(".project-thumb"),
-  );
+  var partnerGrid = page.querySelector("[data-partner-grid]");
   var thumbStrip = page.querySelector("[data-thumb-strip]");
+  var status = page.querySelector("[data-status]");
+  var thumbPrev = page.querySelector("[data-thumb-prev]");
+  var thumbNext = page.querySelector("[data-thumb-next]");
 
   var metaGroup = page.querySelector("[data-project-group]");
-  var metaTitle = page.querySelector("[data-project-title]");
   var metaDescription = page.querySelector("[data-project-description]");
   var metaTags = page.querySelector("[data-project-tags]");
 
   var heroBase = page.querySelector("[data-hero-base]");
+  var heroFrame = page.querySelector(".hero-frame");
   var heroWrapOne = page.querySelector("[data-hero-wrap-one]");
   var heroWrapTwo = page.querySelector("[data-hero-wrap-two]");
   var heroVideoLayer = page.querySelector("[data-hero-video-layer]");
@@ -38,21 +33,11 @@
     page.querySelectorAll("[data-video-close]"),
   );
 
-  function detectPathPrefix() {
-    var homeLink = document.querySelector(".nav-links-group-main a[href]");
-    if (!homeLink) {
-      return "/";
-    }
+  var dataUrl = page.getAttribute("data-projects-url") || "/data/projects.json";
+  var assetPrefix = page.getAttribute("data-asset-prefix") || "/";
 
-    var href = homeLink.getAttribute("href") || "/";
-    if (!href.startsWith("/")) {
-      return "/";
-    }
-
-    return href.endsWith("/") ? href : href + "/";
-  }
-
-  var pathPrefix = detectPathPrefix();
+  var partnerButtons = [];
+  var thumbs = [];
 
   function resolveAssetPath(value) {
     if (!value) {
@@ -60,20 +45,20 @@
     }
 
     if (
-      value.startsWith("http://") ||
-      value.startsWith("https://") ||
-      value.startsWith("//") ||
-      value.startsWith("data:")
+      value.indexOf("http://") === 0 ||
+      value.indexOf("https://") === 0 ||
+      value.indexOf("//") === 0 ||
+      value.indexOf("data:") === 0
     ) {
       return value;
     }
 
-    if (!value.startsWith("/")) {
+    if (value.charAt(0) !== "/") {
       return value;
     }
 
-    if (pathPrefix !== "/" && !value.startsWith(pathPrefix)) {
-      return pathPrefix.slice(0, -1) + value;
+    if (assetPrefix !== "/" && value.indexOf(assetPrefix) !== 0) {
+      return assetPrefix.replace(/\/$/, "") + value;
     }
 
     return value;
@@ -83,10 +68,48 @@
     return (value || "").toLowerCase().trim();
   }
 
+  function trackMediaLoading(container, images) {
+    if (!container) {
+      return;
+    }
+
+    var pending = images.filter(function (image) {
+      return image && !(image.complete && image.naturalWidth > 0);
+    }).length;
+
+    container.classList.toggle("is-loading", pending > 0);
+
+    if (!pending) {
+      return;
+    }
+
+    images.forEach(function (image) {
+      if (!image || (image.complete && image.naturalWidth > 0)) {
+        return;
+      }
+
+      var settle = function () {
+        pending -= 1;
+        if (pending <= 0) {
+          container.classList.remove("is-loading");
+        }
+      };
+
+      image.addEventListener("load", settle, { once: true });
+      image.addEventListener("error", settle, { once: true });
+    });
+  }
+
+  function getActiveGroupDescription() {
+    var activeButton = partnerButtons.find(function (button) {
+      return button.dataset.group === state.group;
+    });
+
+    return activeButton ? activeButton.dataset.description || "" : "";
+  }
+
   var state = {
-    group:
-      page.getAttribute("data-default-group") ||
-      (partnerButtons[0] ? partnerButtons[0].dataset.group : ""),
+    group: "",
     category: "All",
     activeKey: "",
     activeVideoSrc: "",
@@ -124,15 +147,6 @@
       button.classList.toggle(
         "is-active",
         button.dataset.group === state.group,
-      );
-    });
-  }
-
-  function updateCategoryButtons() {
-    categoryButtons.forEach(function (button) {
-      button.classList.toggle(
-        "is-active",
-        button.dataset.category === state.category,
       );
     });
   }
@@ -197,7 +211,6 @@
   function renderActive(thumb) {
     if (!thumb) {
       metaGroup.textContent = "No results";
-      metaTitle.textContent = "No project found";
       metaDescription.textContent = "Try switching category or partner.";
       metaTags.innerHTML = "";
       heroBase.removeAttribute("src");
@@ -214,17 +227,20 @@
       heroVideoWrap.classList.add("is-hidden");
       state.activeVideoSrc = "";
       state.activeVideoTitle = "Project video";
+      if (heroFrame) {
+        heroFrame.classList.remove("is-loading");
+      }
       return;
     }
 
     var title = thumb.dataset.title || "Untitled project";
     var group = thumb.dataset.group || "";
-    var description = thumb.dataset.description || "";
     var category = thumb.dataset.category || "Unknown";
     var tags = parseTags(thumb.dataset.tags);
 
     heroBase.src = resolveAssetPath(thumb.dataset.base);
     heroBase.alt = title;
+    heroBase.dataset.id = thumb.dataset.id || "";
 
     setLayer(
       heroWrapOne,
@@ -288,6 +304,15 @@
       setImage(heroVideoThumb, "", "");
     }
 
+    var heroImages = [heroBase].concat(
+      [heroImageOne, heroImageTwo, heroMask, heroVideoThumb].filter(
+        function (image) {
+          return image.getAttribute("src");
+        },
+      ),
+    );
+    trackMediaLoading(heroFrame, heroImages);
+
     if (thumb.dataset.videoSrc) {
       heroVideoWrap.classList.remove("is-hidden");
       heroVideoLink.href = "#";
@@ -303,8 +328,7 @@
     }
 
     metaGroup.textContent = group;
-    metaTitle.textContent = title;
-    metaDescription.textContent = description || " ";
+    metaDescription.textContent = getActiveGroupDescription() || " ";
 
     var pills = tags.slice();
     if (category) {
@@ -361,7 +385,6 @@
 
     if (!visible.length && state.category !== "All") {
       state.category = "All";
-      updateCategoryButtons();
       visible = getVisibleThumbs();
     }
 
@@ -369,32 +392,275 @@
     updateActiveThumb(visible);
   }
 
-  partnerButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      state.group = button.dataset.group;
-      state.activeKey = "";
-      syncView();
-    });
-  });
+  function selectPartner(group) {
+    state.group = group;
+    state.activeKey = "";
+    syncView();
+  }
 
-  categoryButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      state.category = button.dataset.category;
-      state.activeKey = "";
-      updateCategoryButtons();
-      syncView();
-    });
-  });
+  function selectThumb(thumb) {
+    if (thumb.classList.contains("is-hidden")) {
+      return;
+    }
+    state.activeKey = thumb.dataset.key;
+    syncView();
+  }
 
-  thumbs.forEach(function (thumb) {
-    thumb.addEventListener("click", function () {
-      if (thumb.classList.contains("is-hidden")) {
-        return;
-      }
-      state.activeKey = thumb.dataset.key;
-      syncView();
+  function buildPartnerButton(group) {
+    var button = document.createElement("button");
+    var image = document.createElement("img");
+    var loader = document.createElement("span");
+
+    button.type = "button";
+    button.className = "partner-button";
+    button.dataset.group = group.name;
+    button.dataset.description = group.description || "";
+    button.setAttribute("aria-label", "Select " + group.name);
+
+    loader.className = "shimmer-loader";
+    loader.setAttribute("aria-hidden", "true");
+
+    image.src = resolveAssetPath(group.thumbnail);
+    image.alt = group.name;
+    image.loading = "lazy";
+
+    button.appendChild(loader);
+    button.appendChild(image);
+    button.addEventListener("click", function () {
+      selectPartner(button.dataset.group);
     });
-  });
+
+    trackMediaLoading(button, [image]);
+
+    return button;
+  }
+
+  function appendOverlayLayer(media, layer) {
+    if (!layer || !layer.src) {
+      return;
+    }
+
+    var parent = layer.parentWrapper || {};
+    var transform = layer.imageTransform || {};
+    var wrapper = document.createElement("div");
+    var image = document.createElement("img");
+
+    wrapper.className = "thumb-parent-wrapper";
+    applyWrapperStyle(
+      wrapper,
+      parent.top,
+      parent.left,
+      parent.width,
+      parent.height,
+      parent.transform,
+    );
+
+    image.className = "thumb-overlay";
+    image.src = resolveAssetPath(layer.src);
+    image.alt = "";
+    image.setAttribute("aria-hidden", "true");
+    image.loading = "lazy";
+    applyImageTransform(image, transform.width, transform.transform);
+
+    wrapper.appendChild(image);
+    media.appendChild(wrapper);
+  }
+
+  function appendVideoThumb(media, movieFile) {
+    if (!movieFile || !movieFile.thumbnail) {
+      return;
+    }
+
+    var wrapper = movieFile.videoWrapper || {};
+    var videoWrapper = document.createElement("div");
+    var videoThumb = document.createElement("img");
+
+    videoWrapper.className = "thumb-video-wrapper";
+    applyWrapperStyle(
+      videoWrapper,
+      wrapper.top,
+      wrapper.left,
+      wrapper.width,
+      wrapper.height,
+      "none",
+    );
+
+    videoThumb.className = "thumb-video-thumb";
+    videoThumb.src = resolveAssetPath(movieFile.thumbnail);
+    videoThumb.alt = "";
+    videoThumb.setAttribute("aria-hidden", "true");
+    videoThumb.loading = "lazy";
+
+    videoWrapper.appendChild(videoThumb);
+    media.appendChild(videoWrapper);
+  }
+
+  function buildThumbButton(group, groupIndex, project, itemIndex) {
+    var button = document.createElement("button");
+    var media = document.createElement("div");
+    var baseImage = document.createElement("img");
+    var imageOne = project["image-one"] || {};
+    var imageTwo = project["image-two"] || {};
+    var movieFile = project.movieFile || {};
+
+    button.type = "button";
+    button.className = "project-thumb";
+    button.dataset.key = "g" + groupIndex + "-i" + itemIndex;
+    button.dataset.id = project.id || "";
+    button.dataset.group = group.name;
+    button.dataset.title = project.title || "";
+    button.dataset.category = project.category || "";
+    button.dataset.description = project.description || "";
+    button.dataset.tags = (project.tags || []).join("||");
+    button.dataset.base = project["base-img"] || "";
+    button.dataset.mask = project["mask-img"] || "";
+
+    button.dataset.imageOne = imageOne.src || "";
+    button.dataset.imageOneParentTop = (imageOne.parentWrapper || {}).top || "";
+    button.dataset.imageOneParentLeft =
+      (imageOne.parentWrapper || {}).left || "";
+    button.dataset.imageOneParentWidth =
+      (imageOne.parentWrapper || {}).width || "";
+    button.dataset.imageOneParentHeight =
+      (imageOne.parentWrapper || {}).height || "";
+    button.dataset.imageOneParentTransform =
+      (imageOne.parentWrapper || {}).transform || "";
+    button.dataset.imageOneTransformWidth =
+      (imageOne.imageTransform || {}).width || "";
+    button.dataset.imageOneTransform =
+      (imageOne.imageTransform || {}).transform || "";
+
+    button.dataset.imageTwo = imageTwo.src || "";
+    button.dataset.imageTwoParentTop = (imageTwo.parentWrapper || {}).top || "";
+    button.dataset.imageTwoParentLeft =
+      (imageTwo.parentWrapper || {}).left || "";
+    button.dataset.imageTwoParentWidth =
+      (imageTwo.parentWrapper || {}).width || "";
+    button.dataset.imageTwoParentHeight =
+      (imageTwo.parentWrapper || {}).height || "";
+    button.dataset.imageTwoParentTransform =
+      (imageTwo.parentWrapper || {}).transform || "";
+    button.dataset.imageTwoTransformWidth =
+      (imageTwo.imageTransform || {}).width || "";
+    button.dataset.imageTwoTransform =
+      (imageTwo.imageTransform || {}).transform || "";
+
+    button.dataset.videoThumb = movieFile.thumbnail || "";
+    button.dataset.videoSrc = movieFile.src || "";
+    button.dataset.videoWrapTop = (movieFile.videoWrapper || {}).top || "";
+    button.dataset.videoWrapLeft = (movieFile.videoWrapper || {}).left || "";
+    button.dataset.videoWrapWidth = (movieFile.videoWrapper || {}).width || "";
+    button.dataset.videoWrapHeight =
+      (movieFile.videoWrapper || {}).height || "";
+
+    button.setAttribute("aria-label", "Open " + (project.title || "project"));
+
+    media.className = "thumb-media";
+
+    var loader = document.createElement("div");
+    loader.className = "shimmer-loader";
+    loader.setAttribute("aria-hidden", "true");
+    media.appendChild(loader);
+
+    if (project["base-img"]) {
+      baseImage.className = "thumb-base";
+      baseImage.src = resolveAssetPath(project["base-img"]);
+      baseImage.alt = (project.title || "Project") + " thumbnail";
+      baseImage.loading = "lazy";
+      baseImage.dataset.id = project.id || "";
+      media.appendChild(baseImage);
+    }
+
+    appendOverlayLayer(media, imageOne);
+    appendOverlayLayer(media, imageTwo);
+    appendVideoThumb(media, movieFile);
+
+    if (project["mask-img"]) {
+      var mask = document.createElement("img");
+      mask.className = "thumb-mask";
+      mask.src = resolveAssetPath(project["mask-img"]);
+      mask.alt = "";
+      mask.setAttribute("aria-hidden", "true");
+      mask.loading = "lazy";
+      media.appendChild(mask);
+    }
+
+    button.appendChild(media);
+    button.addEventListener("click", function () {
+      selectThumb(button);
+    });
+
+    trackMediaLoading(
+      media,
+      Array.prototype.slice.call(media.querySelectorAll("img")),
+    );
+
+    return button;
+  }
+
+  function renderProjects(payload) {
+    var groups = payload.groups || [];
+
+    partnerGrid.innerHTML = "";
+    thumbStrip.innerHTML = "";
+
+    groups.forEach(function (group, groupIndex) {
+      partnerGrid.appendChild(buildPartnerButton(group));
+
+      (group.items || []).forEach(function (project, itemIndex) {
+        thumbStrip.appendChild(
+          buildThumbButton(group, groupIndex, project, itemIndex),
+        );
+      });
+    });
+
+    partnerButtons = Array.prototype.slice.call(
+      partnerGrid.querySelectorAll(".partner-button"),
+    );
+    thumbs = Array.prototype.slice.call(
+      thumbStrip.querySelectorAll(".project-thumb"),
+    );
+
+    state.group = payload.defaultGroup || (groups[0] ? groups[0].name : "");
+    state.category = "All";
+    state.activeKey = "";
+
+    if (status) {
+      status.textContent = groups.length
+        ? "Loaded " + groups.length + " project groups."
+        : "No projects found.";
+    }
+
+    syncView();
+    initThumbStripNav();
+  }
+
+  function loadProjects() {
+    if (status) {
+      status.textContent = "Loading projects\u2026";
+    }
+
+    fetch(dataUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Request failed with status " + response.status);
+        }
+
+        return response.json();
+      })
+      .then(function (payload) {
+        renderProjects(payload);
+      })
+      .catch(function (error) {
+        if (status) {
+          status.textContent = "Error loading projects.json: " + error.message;
+        }
+      });
+  }
 
   if (heroVideoLayer) {
     heroVideoLayer.addEventListener("click", function (event) {
@@ -433,55 +699,50 @@
   });
 
   function initThumbStripNav() {
-    var strips = page.querySelectorAll(".thumb-strip");
+    if (!thumbStrip) {
+      return;
+    }
 
-    Array.prototype.forEach.call(strips, function (strip) {
-      var wrapper = strip.closest(".projects-stage") || strip.parentElement;
-      if (!wrapper) {
-        return;
-      }
+    var wrapper =
+      thumbStrip.closest(".projects-stage") || thumbStrip.parentElement;
+    if (!wrapper) {
+      return;
+    }
 
-      var prevBtn =
-        wrapper.querySelector(".thumb-nav-prev") ||
-        wrapper.querySelector("[data-thumb-prev]");
-      var nextBtn =
-        wrapper.querySelector(".thumb-nav-next") ||
-        wrapper.querySelector("[data-thumb-next]");
+    var prevBtn = thumbPrev || wrapper.querySelector("[data-thumb-prev]");
+    var nextBtn = thumbNext || wrapper.querySelector("[data-thumb-next]");
 
-      if (!prevBtn || !nextBtn) {
-        return;
-      }
+    if (!prevBtn || !nextBtn) {
+      return;
+    }
 
-      var scrollAmount = function () {
-        return strip.clientWidth * 0.8;
-      };
+    var scrollAmount = function () {
+      return thumbStrip.clientWidth * 0.8;
+    };
 
-      var updateButtonStates = function () {
-        var maxScroll = strip.scrollWidth - strip.clientWidth;
-        var atStart = strip.scrollLeft <= 1;
-        var atEnd = strip.scrollLeft >= maxScroll - 1;
+    var updateButtonStates = function () {
+      var maxScroll = thumbStrip.scrollWidth - thumbStrip.clientWidth;
+      var atStart = thumbStrip.scrollLeft <= 1;
+      var atEnd = thumbStrip.scrollLeft >= maxScroll - 1;
 
-        prevBtn.disabled = atStart;
-        nextBtn.disabled = atEnd;
-      };
+      prevBtn.disabled = atStart;
+      nextBtn.disabled = atEnd;
+    };
 
-      prevBtn.addEventListener("click", function () {
-        strip.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
-      });
+    prevBtn.onclick = function () {
+      thumbStrip.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    };
 
-      nextBtn.addEventListener("click", function () {
-        strip.scrollBy({ left: scrollAmount(), behavior: "smooth" });
-      });
+    nextBtn.onclick = function () {
+      thumbStrip.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    };
 
-      strip.addEventListener("scroll", updateButtonStates);
-      window.addEventListener("resize", updateButtonStates);
+    thumbStrip.removeEventListener("scroll", updateButtonStates);
+    thumbStrip.addEventListener("scroll", updateButtonStates);
+    window.addEventListener("resize", updateButtonStates);
 
-      updateButtonStates();
-    });
+    updateButtonStates();
   }
 
-  initThumbStripNav();
-
-  updateCategoryButtons();
-  syncView();
+  loadProjects();
 })();

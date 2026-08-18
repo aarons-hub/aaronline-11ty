@@ -1,0 +1,194 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-style: normal;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  font-size: var(--step-0);
+}
+
+.img-master-wrap {
+  display: flex;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  overflow: hidden;
+  background-color: #f4f4f4;
+  aspect-ratio: 3/2;
+  max-width: 900px;
+  & > img {
+    visibility: hidden;
+  }
+}
+
+.image-1-wrap {
+  top: 69%;
+  left: -3%;
+  width: 100%;
+  height: 100%;
+  transform: rotate(20deg);
+  perspective: 3000px;
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+}
+.image-1 {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: opacity 0.25s ease;
+  width: 25%;
+  transform: rotateX(22deg) rotateY(-9deg);
+}
+
+.image-2-wrap {
+  top: 36%;
+  left: 15%;
+  width: 100%;
+  height: 100%;
+  transform: rotate(19deg);
+  perspective: 3000px;
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+.image-2 {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: opacity 0.25s ease;
+  width: 65%;
+  transform: rotateX(17deg) rotateY(-11deg);
+}
+
+.image-3-wrap {
+  top: 39%;
+  left: 65%;
+  width: 100%;
+  height: 100%;
+  transform: rotate(17deg);
+  perspective: 3000px;
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+}
+.image-3 {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: opacity 0.25s ease;
+  width: 21%;
+  transform: rotateX(19deg) rotateY(-6deg);
+}
+
+.image-4-wrap {
+  top: 40%;
+  left: 11%;
+  width: 100%;
+  height: 100%;
+  transform: rotate(18deg);
+  perspective: 3000px;
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+}
+.image-4 {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: opacity 0.25s ease;
+  width: 10%;
+  transform: rotateX(19deg) rotateY(-6deg);
+}
+
+/* Image 4 shadow */
+.image-5-wrap {
+  top: 40%;
+  left: 11%;
+  width: 100%;
+  height: 100%;
+  transform: rotate(18deg);
+  perspective: 3000px;
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: multiply;
+}
+.image-5 {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: opacity 0.25s ease;
+  width: 13%;
+  transform: rotateX(19deg) rotateY(-6deg);
+}
+
+.image-6-wrap {
+  top: 33%;
+  left: 61%;
+  width: 100%;
+  height: 100%;
+  transform: rotate(15deg);
+  perspective: 3000px;
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: multiply;
+}
+.image-6 {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: opacity 0.25s ease;
+  width: 23%;
+  transform: rotateX(19deg) rotateY(-6deg);
+}
+
+.image-7-wrap {
+  top: 65%;
+  left: -5%;
+  width: 100%;
+  height: 100%;
+  transform: rotate(20deg);
+  perspective: 3000px;
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: multiply;
+}
+.image-7 {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: opacity 0.25s ease;
+  width: 25%;
+  transform: rotateX(22deg) rotateY(-9deg);
+}

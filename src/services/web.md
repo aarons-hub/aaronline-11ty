@@ -1,7 +1,7 @@
 ---
 title: Web services
 layout: base.njk
-permalink: /services/web-services/
+permalink: /services/web/
 ---
 
 <section>
@@ -53,5 +53,4 @@ permalink: /services/web-services/
 			web services section.
 		</p>
 	</section>
-
 </section>

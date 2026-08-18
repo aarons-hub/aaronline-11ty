@@ -5,7 +5,7 @@ needsContactForm: true
 ---
 
 <section>
-  <div class="container ink">
+  <div class="container ink bkg">
     <div class="row gap-60">
       <div class="col">
         <div class="cta-text-group">
@@ -32,7 +32,7 @@ needsContactForm: true
 </section>
 <div class="spacer-24"></div>
 <section>
-  <div class="container">
+  <div class="container white">
     <div class="row pricing-section gap-20">
       <div class="col card starter">
         <div class="row item-title">

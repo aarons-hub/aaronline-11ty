@@ -1,7 +1,148 @@
 <footer class="site-footer">
+  <div class="top-btn-wrap">
+    <a class="back-to-top" href="#top"></a>
+  </div>
   <div class="container">
     <div class="footer-inner">
-      <p>&copy; 2027 Aaronline Design</p>
+      <div class="row footer-content">
+        <div class="col">
+          <div class="logo-wrap">
+            <div class="row">
+              <div class="col logo">
+                <svg
+                  width="72"
+                  height="36"
+                  viewBox="0 0 72 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="7.63595"
+                    cy="28.3369"
+                    r="7.63595"
+                    fill="#043E56"
+                  />
+                  <circle
+                    cx="45.2199"
+                    cy="28.3369"
+                    r="7.63595"
+                    fill="#E0D5B9"
+                  />
+                  <path
+                    d="M17.9932 0.0135498C8.05584 0.0135498 0 8.06939 0 18.0068H35.9864C35.9864 8.06939 27.9306 0.0135498 17.9932 0.0135498Z"
+                    fill="#2BA5B2"
+                  />
+                  <path
+                    d="M71.9316 18.0068C71.9316 8.06939 63.8758 0.0135495 53.9384 0.013549L53.9384 36C63.8758 36 71.9316 27.9442 71.9316 18.0068Z"
+                    fill="#3B4D73"
+                  />
+                  <path
+                    d="M35.9737 17.9932C26.0363 17.9932 17.9805 26.0491 17.9805 35.9864H35.9737V17.9932Z"
+                    fill="#89CDDA"
+                  />
+                  <path
+                    d="M35.958 17.9932C45.8953 17.9932 53.9512 9.93739 53.9512 3.8147e-06L35.958 2.24168e-06L35.958 17.9932Z"
+                    fill="#F7AF02"
+                  />
+                </svg>
+              </div>
+              <div class="col title">Aaronline Design</div>
+            </div>
+            <p>Brisbane web designer focused on small business success.</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row nav">
+            <div class="col graphic">
+              <svg
+                width="71"
+                height="89"
+                viewBox="0 0 71 89"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect x="63" width="8" height="54" fill="#89CDDA" />
+                <rect width="2" height="2" fill="#2BA5B2" />
+                <rect x="14.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="29" width="2" height="2" fill="#2BA5B2" />
+                <rect x="43.5" width="2" height="2" fill="#2BA5B2" />
+                <rect y="14.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="14.5" y="14.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="29" y="14.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="43.5" y="14.5" width="2" height="2" fill="#2BA5B2" />
+                <rect y="29" width="2" height="2" fill="#2BA5B2" />
+                <rect x="14.5" y="29" width="2" height="2" fill="#2BA5B2" />
+                <rect x="29" y="29" width="2" height="2" fill="#2BA5B2" />
+                <rect x="43.5" y="29" width="2" height="2" fill="#2BA5B2" />
+                <rect y="43.5" width="2" height="2" fill="#2BA5B2" />
+                <rect y="58" width="2" height="2" fill="#2BA5B2" />
+                <rect y="72.5" width="2" height="2" fill="#2BA5B2" />
+                <rect y="87" width="2" height="2" fill="#2BA5B2" />
+                <rect x="14.5" y="43.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="14.5" y="58" width="2" height="2" fill="#2BA5B2" />
+                <rect x="14.5" y="72.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="14.5" y="87" width="2" height="2" fill="#2BA5B2" />
+                <rect x="29" y="43.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="29" y="58" width="2" height="2" fill="#2BA5B2" />
+                <rect x="29" y="72.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="29" y="87" width="2" height="2" fill="#2BA5B2" />
+                <rect x="43.5" y="43.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="43.5" y="58" width="2" height="2" fill="#2BA5B2" />
+                <rect x="43.5" y="72.5" width="2" height="2" fill="#2BA5B2" />
+                <rect x="43.5" y="87" width="2" height="2" fill="#2BA5B2" />
+              </svg>
+            </div>
+            <div class="col links">
+              <ul class="nav-links-container nav-links-group-footer">
+                {% for item in footerNav.items %}
+                <li class="nav-link-item">
+                  <a href="{{ item.url | url }}">{{ item.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="row copyright">
+        <div class="col graphic">
+          <svg width="89" height="66" viewBox="0 0 89 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="35" y="8.00006" width="8" height="54" transform="rotate(-90 35 8.00006)" fill="#F7AF02"/>
+            <rect x="89" y="19.7502" width="2" height="2" transform="rotate(90 89 19.7502)" fill="#2BA5B2"/>
+            <rect x="89" y="34.2501" width="2" height="2" transform="rotate(90 89 34.2501)" fill="#2BA5B2"/>
+            <rect x="89" y="48.7501" width="2" height="2" transform="rotate(90 89 48.7501)" fill="#2BA5B2"/>
+            <rect x="89" y="63.2501" width="2" height="2" transform="rotate(90 89 63.2501)" fill="#2BA5B2"/>
+            <rect x="74.5" y="19.7501" width="2" height="2" transform="rotate(90 74.5 19.7501)" fill="#2BA5B2"/>
+            <rect x="74.5" y="34.2501" width="2" height="2" transform="rotate(90 74.5 34.2501)" fill="#2BA5B2"/>
+            <rect x="74.5" y="48.7501" width="2" height="2" transform="rotate(90 74.5 48.7501)" fill="#2BA5B2"/>
+            <rect x="74.5" y="63.2501" width="2" height="2" transform="rotate(90 74.5 63.2501)" fill="#2BA5B2"/>
+            <rect x="60" y="19.7501" width="2" height="2" transform="rotate(90 60 19.7501)" fill="#2BA5B2"/>
+            <rect x="60" y="34.2501" width="2" height="2" transform="rotate(90 60 34.2501)" fill="#2BA5B2"/>
+            <rect x="60" y="48.7501" width="2" height="2" transform="rotate(90 60 48.7501)" fill="#2BA5B2"/>
+            <rect x="60" y="63.2501" width="2" height="2" transform="rotate(90 60 63.2501)" fill="#2BA5B2"/>
+            <rect x="45.5" y="19.7501" width="2" height="2" transform="rotate(90 45.5 19.7501)" fill="#2BA5B2"/>
+            <rect x="31" y="19.7501" width="2" height="2" transform="rotate(90 31 19.7501)" fill="#2BA5B2"/>
+            <rect x="16.5" y="19.7501" width="2" height="2" transform="rotate(90 16.5 19.7501)" fill="#2BA5B2"/>
+            <rect x="2" y="19.7501" width="2" height="2" transform="rotate(90 2 19.7501)" fill="#2BA5B2"/>
+            <rect x="45.5" y="34.2501" width="2" height="2" transform="rotate(90 45.5 34.2501)" fill="#2BA5B2"/>
+            <rect x="31" y="34.2501" width="2" height="2" transform="rotate(90 31 34.2501)" fill="#2BA5B2"/>
+            <rect x="16.5" y="34.2501" width="2" height="2" transform="rotate(90 16.5 34.2501)" fill="#2BA5B2"/>
+            <rect x="2" y="34.2501" width="2" height="2" transform="rotate(90 2 34.2501)" fill="#2BA5B2"/>
+            <rect x="45.5" y="48.7501" width="2" height="2" transform="rotate(90 45.5 48.7501)" fill="#2BA5B2"/>
+            <rect x="31" y="48.7501" width="2" height="2" transform="rotate(90 31 48.7501)" fill="#2BA5B2"/>
+            <rect x="16.5" y="48.7501" width="2" height="2" transform="rotate(90 16.5 48.7501)" fill="#2BA5B2"/>
+            <rect x="2" y="48.7501" width="2" height="2" transform="rotate(90 2 48.7501)" fill="#2BA5B2"/>
+            <rect x="45.5" y="63.2501" width="2" height="2" transform="rotate(90 45.5 63.2501)" fill="#2BA5B2"/>
+            <rect x="31" y="63.2501" width="2" height="2" transform="rotate(90 31 63.2501)" fill="#2BA5B2"/>
+            <rect x="16.5" y="63.2501" width="2" height="2" transform="rotate(90 16.5 63.2501)" fill="#2BA5B2"/>
+            <rect x="2" y="63.2501" width="2" height="2" transform="rotate(90 2 63.2501)" fill="#2BA5B2"/>
+          </svg>
+        </div>
+        <div class="col">
+          <p>&copy; 2026 Aaronline Design. All rights Reserved</p>
+        </div>
+      </div>
     </div>
   </div>
 </footer>

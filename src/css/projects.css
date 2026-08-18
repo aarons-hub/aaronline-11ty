@@ -7,9 +7,8 @@
   margin-right: auto;
   margin-top: 20px;
   gap: 40px;
-  border: 1px solid var(--sand);
-  padding: 20px;
-  border-radius: var(--container-radius);
+  padding-top: 20px;
+  padding-bottom: 20px;
   .content {
     position: relative;
     display: flex;
@@ -210,6 +209,7 @@
   min-height: 300px;
   width: fit-content;
   height: fit-content;
+  overflow: hidden;
   border: 1px solid var(--paper);
 }
 .hero-base {
@@ -468,4 +468,22 @@
 
 .page-title {
   display: none;
+}
+
+.intro {
+  align-items: flex-end;
+}
+.row.select {
+  .col.sth-west-icon {
+    flex-basis: 24px;
+    flex-grow: 0;
+    position: relative;
+    &::before {
+      content: "\f1e5";
+      font-family: var(--iconfont);
+      color: var(--sand);
+      position: absolute;
+      margin-top: 10px;
+    }
+  }
 }

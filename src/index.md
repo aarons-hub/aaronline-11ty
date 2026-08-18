@@ -1,5 +1,5 @@
 ---
-title: Homepage
+title: Home
 layout: base.njk
 needsContactForm: true
 ---

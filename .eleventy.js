@@ -13,6 +13,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     "node_modules/@emailjs/browser/dist/email.min.js":
       "js/vendor/emailjs.min.js",
+    "node_modules/gsap/dist/gsap.min.js": "js/vendor/gsap.min.js",
   });
 
   eleventyConfig.addCollection("pages", function (collectionApi) {

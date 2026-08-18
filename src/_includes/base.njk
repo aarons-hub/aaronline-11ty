@@ -4,21 +4,33 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="{{ '/favicon.svg' | url }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} | Aarononline Design</title>
+    <title>Aaronline Design | {{ title }}</title>
+    <meta
+    name="description"
+    content="Aaronline Design is a Brisbane web design business creating fast, user-friendly websites for small businesses. Custom websites built to attract customers and support business growth."
+    data-rh="true"
+  />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-56ZJCW1W79"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("js", new Date());
+      gtag("config", "G-56ZJCW1W79", { send_page_view: false });
+    </script>
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}" />
-    {% if page.url == '/projects/' or page.url == '/ajax-projects/' %}
+    {% if page.url == '/projects/' %}
       <link rel="stylesheet" href="{{ '/css/projects.css' | url }}" />
-    {% endif %}
-    {% if page.url == '/services/' or page.url.indexOf('/services/') == 0 %}
-      <link rel="stylesheet" href="{{ '/css/services.css' | url }}" />
-    {% endif %}
-    {% if page.url == '/ajax-test/' %}
-      <link rel="stylesheet" href="{{ '/css/ajax-test.css' | url }}" />
     {% endif %}
   </head>
   <body class="{{ title | slugify }}">
@@ -29,25 +41,21 @@
       {{ content | safe }}
     </main>
     {% include "footer.njk" %}
+      <script src="{{ '/js/vendor/gsap.min.js' | url }}" defer></script>
       <script src="{{ '/js/main.js' | url }}" defer></script>
+      <script src="{{ '/js/footer.js' | url }}" defer></script>
     {% if page.url == '/projects/' %}
       <script src="{{ '/js/projects.js' | url }}" defer></script>
-    {% endif %}
-    {% if page.url == '/services/' or page.url.indexOf('/services/') == 0 %}
-      <script src="{{ '/js/services.js' | url }}" defer></script>
-    {% endif %}
-    {% if needsContactForm %}
-      <script src="{{ '/js/vendor/emailjs.min.js' | url }}" defer></script>
-      <script src="{{ '/js/contact.js' | url }}" defer></script>
     {% endif %}
     {% if page.url == '/ajax-test/' %}
       <script src="{{ '/js/ajax-test.js' | url }}" defer></script>
     {% endif %}
-    {% if page.url == '/ajax-projects/' %}
-      <script src="{{ '/js/ajax-projects.js' | url }}" defer></script>
+    {% if page.url == '/projects/' %}
+      <script src="{{ '/js/projects.js' | url }}" defer></script>
     {% endif %}
-        {% if page.url == '/work/' %}
-      <script src="{{ '/js/portfolio-filter.js' | url }}" defer></script>
+    {% if needsContactForm %}
+      <script src="{{ '/js/vendor/emailjs.min.js' | url }}" defer></script>
+      <script src="{{ '/js/contact.js' | url }}" defer></script>
     {% endif %}
     </body>
 </html>

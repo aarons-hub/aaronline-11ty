@@ -9,94 +9,19 @@
         },
         {
           "title": "About",
-          "url": "/about/"
+          "url": "/web-designer-brisbane/"
         },
         {
           "title": "Services",
-          "url": "/services/",
-          "megaMenu": {
-            "intro": {
-              "title": "Creative services",
-              "text": "Design, build, and visual storytelling services for brands that need polished digital work."
-            },
-            "columns": [
-              {
-                "heading": "Web services",
-                "links": [
-                  {
-                    "title": "Landing pages",
-                    "url": "/services/web-services/"
-                  },
-                  {
-                    "title": "WordPress builds",
-                    "url": "/services/web-services/"
-                  },
-                  {
-                    "title": "Site refreshes",
-                    "url": "/services/web-services/"
-                  }
-                ]
-              },
-              {
-                "heading": "Brand design",
-                "links": [
-                  {
-                    "title": "Logo design",
-                    "url": "/services/#brand-design"
-                  },
-                  {
-                    "title": "Stationery systems",
-                    "url": "/services/#brand-design"
-                  },
-                  {
-                    "title": "Visual identity",
-                    "url": "/services/#brand-design"
-                  }
-                ]
-              },
-              {
-                "heading": "Photography",
-                "links": [
-                  {
-                    "title": "Commercial shoots",
-                    "url": "/services/#photography"
-                  },
-                  {
-                    "title": "Portfolio imagery",
-                    "url": "/services/#photography"
-                  },
-                  {
-                    "title": "Campaign assets",
-                    "url": "/services/#photography"
-                  }
-                ]
-              }
-            ],
-            "featured": {
-              "eyebrow": "Featured work",
-              "title": "Explore recent service examples",
-              "text": "Browse web, identity, and photo work in the interactive services showcase.",
-              "url": "/services/",
-              "linkTitle": "Open services",
-              "image": "/images/lime-web-002.png"
-            }
-          }
+          "url": "/services/"
         },
         {
-          "title": "Ajax Projects",
-          "url": "/ajax-projects/"
+          "title": "Work",
+          "url": "/projects/"
         },
         {
           "title": "Pricing",
           "url": "/pricing/"
-        },
-        {
-          "title": "Test",
-          "url": "/ajax-test/"
-        },
-        {
-          "title": "About 2",
-          "url": "/web-designer-brisbane/"
         }
       ]
     },
